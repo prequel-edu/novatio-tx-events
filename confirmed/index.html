@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Registered! | Novatio Texas Events</title>
+
+  <!-- Add to Calendar Button -->
+  <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --dark:   #222625;
+      --orange: #FC4B0C;
+      --cream:  #FFF8F3;
+      --warm:   #FBF6F2;
+      --muted:  #6B7280;
+      --border: #E5E7EB;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    h1,h2,h3,h4 { font-family: 'Bricolage Grotesque', sans-serif; }
+    .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: center; }
+    nav img { height: 24px; }
+
+    /* HERO */
+    .conf-hero { background: var(--orange); padding: 56px 0 48px; text-align: center; position: relative; overflow: hidden; }
+    .conf-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,.08); }
+    .conf-hero::after  { content: ''; position: absolute; bottom: -80px; left: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,.06); }
+    .check-circle { width: 72px; height: 72px; background: rgba(255,255,255,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
+    .conf-hero h1 { font-size: clamp(28px,4vw,44px); font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 10px; }
+    .conf-hero p { font-size: 16px; color: rgba(255,255,255,.85); max-width: 420px; margin: 0 auto; }
+
+    /* EVENT DETAILS CARD */
+    .conf-body { padding: 48px 0 60px; }
+    .event-card { background: #fff; border-radius: 20px; padding: 28px; border: 1.5px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,.07); margin-bottom: 24px; }
+    .event-card h3 { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 18px; }
+    .event-detail-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 15px; }
+    .event-detail-row .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .event-detail-row .label { font-weight: 700; color: var(--dark); }
+    .event-detail-row .value { color: var(--muted); font-size: 14px; margin-top: 2px; }
+    .tba-badge { display: inline-block; font-size: 11px; font-weight: 700; background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
+
+    /* Calendar button wrapper */
+    .cal-section { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .cal-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+    /* Share section */
+    .share-card { background: #fff; border-radius: 20px; padding: 28px; border: 1.5px solid var(--border); margin-bottom: 24px; }
+    .share-card h3 { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+    .share-card p { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+    .share-link-row { display: flex; gap: 8px; align-items: center; }
+    .share-url { flex: 1; padding: 10px 13px; background: var(--warm); border: 1.5px solid var(--border); border-radius: 9px; font-size: 14px; color: var(--dark); font-family: 'Inter', sans-serif; }
+    .btn-copy { padding: 10px 18px; background: var(--orange); color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 700; border: none; border-radius: 9px; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+    .btn-copy:hover { opacity: .88; }
+    .copied-msg { font-size: 12px; color: #065F46; font-weight: 600; margin-top: 6px; display: none; }
+
+    /* What to expect */
+    .expect-card { background: var(--warm); border-radius: 20px; padding: 28px; }
+    .expect-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    .expect-item { display: flex; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #374151; line-height: 1.6; }
+    .expect-item .ei { font-size: 18px; flex-shrink: 0; }
+
+    /* Footer */
+    footer { background: #151A18; color: rgba(255,255,255,.5); padding: 24px; text-align: center; font-size: 12px; }
+    footer a { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/">
+    <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d0dc0455a56ea3aef16_Novatio%20Primary%20Logo%20-%20Dark.svg" alt="Novatio" />
+  </a>
+</nav>
+
+<div class="conf-hero">
+  <div class="container">
+    <div class="check-circle">✅</div>
+    <h1>You're registered!</h1>
+    <p id="conf-sub">We can't wait to meet your family.</p>
+  </div>
+</div>
+
+<div class="conf-body">
+  <div class="container">
+
+    <!-- Event details -->
+    <div class="event-card">
+      <h3>Your Event Details</h3>
+      <div class="event-detail-row">
+        <span class="icon">📍</span>
+        <div>
+          <div class="label" id="venue-name">—</div>
+          <div class="value" id="venue-address"></div>
+        </div>
+      </div>
+      <div class="event-detail-row">
+        <span class="icon">📅</span>
+        <div>
+          <div class="label" id="event-date">—</div>
+        </div>
+      </div>
+      <div class="event-detail-row">
+        <span class="icon">🕐</span>
+        <div>
+          <div class="label" id="event-time">—</div>
+          <div class="value">Central Time (CT)</div>
+        </div>
+      </div>
+
+      <!-- Add to Calendar -->
+      <div class="cal-section">
+        <div class="cal-label">Add to your calendar</div>
+        <div id="cal-btn-container"></div>
+      </div>
+    </div>
+
+    <!-- Share section -->
+    <div class="share-card">
+      <h3>Know a family exploring TEFA options?</h3>
+      <p>Share this event with them — the more families who come, the more questions we can answer together. It's free to attend.</p>
+      <div class="share-link-row">
+        <input class="share-url" type="text" value="https://txevents.novatio.world" readonly id="share-input" />
+        <button class="btn-copy" onclick="copyLink()">Copy Link</button>
+      </div>
+      <div class="copied-msg" id="copied-msg">✓ Copied to clipboard!</div>
+    </div>
+
+    <!-- What to expect -->
+    <div class="expect-card">
+      <h3>What to expect at the event</h3>
+      <div class="expect-item"><span class="ei">🤝</span><span>Meet Karissa and the Novatio team in person — ask anything.</span></div>
+      <div class="expect-item"><span class="ei">🎓</span><span>See how the school day works: 2-hour academics + afternoon clubs.</span></div>
+      <div class="expect-item"><span class="ei">💰</span><span>Get all your TEFA questions answered — how to apply, timelines, what's covered.</span></div>
+      <div class="expect-item"><span class="ei">📝</span><span>No commitment required. Come curious, leave informed.</span></div>
+      <div class="expect-item"><span class="ei">👨‍👩‍👧</span><span>Bring the family — kids are welcome.</span></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Questions? Email <a href="mailto:hello@novatio.school">hello@novatio.school</a> · <a href="/">Back to events</a>
+</footer>
+
+<script>
+/* ─── EVENT DATA ─────────────────────────────────────────────── */
+const EVENTS = {
+  'austin-apr26-4pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'4:00–6:00pm CT', venue:"Austin's",           address:'Details TBA',                  gcalDate:'20260426', gcalStart:'160000', gcalEnd:'180000' },
+  'austin-apr26-6pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'6:00–8:00pm CT', venue:"Austin's",           address:'Details TBA',                  gcalDate:'20260426', gcalStart:'180000', gcalEnd:'200000' },
+  'austin-apr27-4pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'4:00–6:00pm CT', venue:'Ghostline Kitchen',   address:'Details TBA',                  gcalDate:'20260427', gcalStart:'160000', gcalEnd:'180000' },
+  'austin-apr27-6pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'6:00–8:00pm CT', venue:'Ghostline Kitchen',   address:'Details TBA',                  gcalDate:'20260427', gcalStart:'180000', gcalEnd:'200000' },
+  'houston-may10-4pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'4:00–6:00pm CT', venue:'Flip N Fun Center',   address:'Details TBA',                  gcalDate:'20260510', gcalStart:'160000', gcalEnd:'180000' },
+  'houston-may10-6pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'6:00–8:00pm CT', venue:'Flip N Fun Center',   address:'Details TBA',                  gcalDate:'20260510', gcalStart:'180000', gcalEnd:'200000' },
+  'houston-may11-4pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260511', gcalStart:'160000', gcalEnd:'180000' },
+  'houston-may11-6pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260511', gcalStart:'180000', gcalEnd:'200000' },
+  'san-antonio-may13-4pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260513', gcalStart:'160000', gcalEnd:'180000' },
+  'san-antonio-may13-6pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260513', gcalStart:'180000', gcalEnd:'200000' },
+  'san-antonio-may14-4pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260514', gcalStart:'160000', gcalEnd:'180000' },
+  'san-antonio-may14-6pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260514', gcalStart:'180000', gcalEnd:'200000' },
+  'dallas-may17-4pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260517', gcalStart:'160000', gcalEnd:'180000' },
+  'dallas-may17-6pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260517', gcalStart:'180000', gcalEnd:'200000' },
+  'dallas-may18-4pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260518', gcalStart:'160000', gcalEnd:'180000' },
+  'dallas-may18-6pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260518', gcalStart:'180000', gcalEnd:'200000' },
+};
+
+/* ─── RENDER PAGE ────────────────────────────────────────────── */
+(function() {
+  const params = new URLSearchParams(location.search);
+  const slot   = params.get('slot');
+  const ev     = slot ? EVENTS[slot] : null;
+
+  if (ev) {
+    document.title = `You're Registered — Novatio ${ev.city} | ${ev.date}`;
+    document.getElementById('conf-sub').textContent = `We'll see you in ${ev.city} on ${ev.date}.`;
+    document.getElementById('venue-name').textContent = ev.venue;
+    document.getElementById('venue-address').textContent = ev.address || '';
+    if (!ev.address) document.getElementById('venue-address').style.display = 'none';
+    document.getElementById('event-date').textContent = ev.date;
+    document.getElementById('event-time').textContent = ev.time;
+
+    // Render add-to-calendar button
+    const isTBA = ev.venue === 'Venue to be announced';
+    const calContainer = document.getElementById('cal-btn-container');
+
+    // Build ISO date strings (events are CT = UTC-5)
+    const startDateISO = `${ev.gcalDate.slice(0,4)}-${ev.gcalDate.slice(4,6)}-${ev.gcalDate.slice(6,8)}`;
+    const startTimeFormatted = `${ev.gcalStart.slice(0,2)}:${ev.gcalStart.slice(2,4)}`;
+    const endTimeFormatted   = `${ev.gcalEnd.slice(0,2)}:${ev.gcalEnd.slice(2,4)}`;
+
+    const calEl = document.createElement('add-to-calendar-button');
+    calEl.setAttribute('name', `Novatio ${ev.city} — Meet Us In Person`);
+    calEl.setAttribute('startDate', startDateISO);
+    calEl.setAttribute('startTime', startTimeFormatted);
+    calEl.setAttribute('endTime', endTimeFormatted);
+    calEl.setAttribute('timeZone', 'America/Chicago');
+    calEl.setAttribute('location', isTBA ? `${ev.city}, TX` : `${ev.venue}, ${ev.city}, TX`);
+    calEl.setAttribute('description', `You're registered for the Novatio in-person event in ${ev.city}!\\n\\nNovatio is a private, virtual, AI-driven school for grades 4–8. Come meet our team, ask questions about TEFA funding, and see how we're different.\\n\\nNo commitment required.\\n\\nLearn more: https://txevents.novatio.world`);
+    calEl.setAttribute('options', "'Google','Apple','Outlook.com','iCal'");
+    calEl.setAttribute('buttonStyle', 'round');
+    calEl.setAttribute('size', '4');
+    calEl.setAttribute('lightMode', 'light');
+    calContainer.appendChild(calEl);
+  } else {
+    // Fallback if no slot param
+    document.getElementById('conf-sub').textContent = "We'll be in touch with your event details soon.";
+    document.querySelector('.event-card h3').textContent = 'Registration received!';
+    document.querySelector('.event-detail-row').innerHTML = '<span class="icon">📬</span><div><div class="label">Check your email</div><div class="value">We\'ll send your event details shortly.</div></div>';
+    document.getElementById('cal-btn-container').innerHTML = '';
+  }
+})();
+
+/* ─── COPY LINK ──────────────────────────────────────────────── */
+function copyLink() {
+  const url = 'https://txevents.novatio.world';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      document.getElementById('copied-msg').style.display = 'block';
+      setTimeout(() => { document.getElementById('copied-msg').style.display = 'none'; }, 2500);
+    });
+  } else {
+    document.getElementById('share-input').select();
+    document.execCommand('copy');
+    document.getElementById('copied-msg').style.display = 'block';
+    setTimeout(() => { document.getElementById('copied-msg').style.display = 'none'; }, 2500);
+  }
+}
+</script>
+
+</body>
+</html>

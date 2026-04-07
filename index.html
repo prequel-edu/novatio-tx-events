@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novatio | Texas In-Person Events | TEFA Approved · Grades 4–8</title>
+  <meta name="description" content="Novatio is coming to Texas! Join us in Austin, Houston, San Antonio, and Dallas. Meet our team, ask questions, and see how TEFA covers 100% of tuition. Free to attend." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS (exact novatio.school) ──────────────────── */
+    :root {
+      --dark:     #222625;
+      --orange:   #FC4B0C;
+      --orange2:  #FF9437;
+      --blue:     #6BACF1;
+      --purple:   #C37AD6;
+      --cream:    #FFF8F3;
+      --warm:     #FBF6F2;
+      --white:    #FFFFFF;
+      --text:     #222625;
+      --muted:    #6B7280;
+      --border:   #E5E7EB;
+      --yellow:   #FFFFAC;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    h1,h2,h3,h4 { font-family: 'Bricolage Grotesque', sans-serif; line-height: 1.15; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────────── */
+    @keyframes float-anim { 0%,100%{transform:translate(0,0)} 50%{transform:translate(var(--fx,10px),var(--fy,-12px))} }
+    .float { animation: float-anim var(--fs,6s) var(--fd,0s) ease-in-out infinite; }
+    @keyframes banner-bob { 0%,100%{transform:translateY(0) rotate(-.5deg)} 50%{transform:translateY(-6px) rotate(.5deg)} }
+    .hero-banner { animation: banner-bob 4s ease-in-out infinite; }
+
+    /* ─── NAV ─────────────────────────────────────────────────────── */
+    nav { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 200; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1180px; margin: 0 auto; padding: 16px 28px; }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-phone { font-size: 14px; color: var(--muted); }
+    .nav-phone a { color: var(--dark); font-weight: 600; }
+    .btn-nav { padding: 11px 22px; border-radius: 10px; background: var(--orange); color: #fff; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: opacity .2s; }
+    .btn-nav:hover { opacity: .88; }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    .hero { background: var(--cream); padding: 72px 0 80px; position: relative; overflow: hidden; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 440px; gap: 56px; align-items: center; position: relative; z-index: 2; }
+    .hero-deco { position: absolute; pointer-events: none; z-index: 1; }
+    .deco-d1 { top:8%; left:5%; width:28px; }
+    .deco-d2 { top:20%; right:420px; width:20px; }
+    .deco-d3 { bottom:15%; left:7%; width:18px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; background: rgba(252,75,12,.1); color: var(--orange); border: 1px solid rgba(252,75,12,.2); margin-bottom: 20px; }
+    .hero-banner { display: inline-flex; align-items: center; gap: 20px; background: var(--orange); border-radius: 999px; padding: 16px 32px; margin-bottom: 18px; color: var(--yellow); font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(22px,2.6vw,36px); font-weight: 800; letter-spacing: -.5px; }
+    .banner-diamond { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+    .hero-h1 { font-size: clamp(28px,3.5vw,46px); font-weight: 800; color: var(--dark); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px; }
+    .hero-sub { font-size: 17px; color: var(--muted); max-width: 520px; margin-bottom: 24px; line-height: 1.75; }
+    .hero-sub strong { color: var(--dark); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .htag { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #fff; color: #374151; border: 1px solid var(--border); }
+    .htag.green { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
+    .htag.amber { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
+
+    /* ─── FORM CARD ───────────────────────────────────────────────── */
+    #register { position: relative; z-index: 10; }
+    .form-card { background: #fff; border-radius: 20px; padding: 28px 28px 24px; box-shadow: 0 8px 40px rgba(34,38,37,.12), 0 2px 8px rgba(34,38,37,.06); }
+    .form-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #FEF3C7; color: #92400E; margin-bottom: 10px; }
+    .form-card h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+    .form-card .fsub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    /* Slot picker */
+    .step-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+    .slot-step { margin-bottom: 16px; }
+    .slot-step.hidden { display: none; }
+    .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .slot-btn { width: 100%; background: var(--warm); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 12px; text-align: left; cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color .15s, background .15s; }
+    .slot-btn:hover { border-color: var(--orange); background: #fff; }
+    .slot-btn.selected { border-color: var(--orange); background: rgba(252,75,12,.05); }
+    .slot-btn .sb-city { font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 800; color: var(--dark); display: block; }
+    .slot-btn .sb-date { font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
+    .slot-btn .sb-venue { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+    .slot-btn .sb-time { font-size: 12px; font-weight: 600; color: var(--dark); display: block; margin-top: 2px; }
+    .date-grid { display: flex; flex-direction: column; gap: 8px; }
+    .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .step-back { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0 0 8px 0; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 4px; }
+    .step-back:hover { color: var(--dark); }
+    .divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+    /* Contact fields */
+    .contact-fields { display: none; }
+    .contact-fields.visible { display: block; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fg { margin-bottom: 12px; }
+    .fg label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 5px; }
+    .fg input, .fg select { width: 100%; padding: 10px 13px; background: var(--warm); border: 1.5px solid var(--border); border-radius: 9px; color: var(--dark); font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: border-color .2s, box-shadow .2s; }
+    .fg input::placeholder { color: #9CA3AF; }
+    .fg input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(252,75,12,.1); background: #fff; }
+    .selected-slot-display { background: var(--cream); border: 1.5px solid rgba(252,75,12,.2); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+    .selected-slot-display span { font-weight: 700; }
+    .selected-slot-display button { margin-left: auto; background: none; border: none; font-size: 12px; color: var(--orange); cursor: pointer; font-family: 'Inter', sans-serif; }
+    .consent { font-size: 11px; color: var(--muted); line-height: 1.5; margin: 8px 0 14px; }
+    .consent a { color: var(--orange); }
+    .btn-submit { width: 100%; padding: 14px; background: var(--orange); color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; border: none; border-radius: 10px; cursor: pointer; transition: opacity .2s; }
+    .btn-submit:hover { opacity: .88; }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .form-trust { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
+    .form-error { display: none; background: #FEE2E2; border: 1px solid #FECACA; color: #991B1B; font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+
+    /* ─── TRUST BAR ───────────────────────────────────────────────── */
+    .trust-bar { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .trust-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; }
+    .titem { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #374151; }
+    .cognia-badge { height: 52px; width: auto; }
+    .tdiv { width: 1px; height: 22px; background: var(--border); }
+
+    /* ─── EVENTS GRID ─────────────────────────────────────────────── */
+    .events-section { background: var(--warm); padding: 72px 0; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .section-h2 { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(28px,3.5vw,44px); font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+    .section-sub { font-size: 16px; color: var(--muted); max-width: 560px; line-height: 1.75; margin-bottom: 40px; }
+    .city-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .city-card { background: #fff; border-radius: 20px; padding: 28px; border: 1.5px solid var(--border); transition: box-shadow .2s, border-color .2s; }
+    .city-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.1); border-color: rgba(252,75,12,.3); }
+    .city-card-name { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .city-flag { font-size: 20px; }
+    .event-row { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .event-row:last-of-type { border-bottom: none; }
+    .event-date-line { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .event-venue { font-size: 13px; color: var(--muted); margin-bottom: 4px; font-style: italic; }
+    .event-capacity { font-size: 12px; color: var(--muted); }
+    .event-times { display: flex; gap: 8px; margin-top: 8px; }
+    .time-chip { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--cream); color: var(--dark); border: 1px solid var(--border); cursor: pointer; transition: background .15s, border-color .15s; }
+    .time-chip:hover, .time-chip.hl { background: var(--orange); color: #fff; border-color: var(--orange); }
+    .city-cta { margin-top: 16px; }
+    .btn-city { display: block; width: 100%; padding: 11px; background: var(--orange); color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 800; border: none; border-radius: 10px; cursor: pointer; transition: opacity .2s; text-align: center; }
+    .btn-city:hover { opacity: .88; }
+
+    /* ─── PROGRAM BRIEF ───────────────────────────────────────────── */
+    .program-section { background: var(--cream); padding: 72px 0; }
+    .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .prog-left h2 { font-size: clamp(26px,3vw,40px); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+    .prog-left p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+    .tefa-box { background: #fff; border: 2px solid #FDDAB6; border-radius: 16px; padding: 20px 24px; margin-top: 20px; }
+    .tefa-box h4 { font-size: 16px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+    .tefa-box p { font-size: 14px; color: #374151; line-height: 1.65; }
+    .prog-features { display: flex; flex-direction: column; gap: 16px; }
+    .prog-feat { display: flex; gap: 14px; align-items: flex-start; }
+    .feat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .feat-icon.blue { background: rgba(107,172,241,.15); }
+    .feat-icon.purple { background: rgba(195,122,214,.15); }
+    .feat-icon.orange { background: rgba(252,75,12,.1); }
+    .feat-text h4 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+    .feat-text p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .cognia-trust { display: flex; align-items: center; gap: 12px; margin-top: 24px; padding: 14px 18px; background: #fff; border-radius: 12px; border: 1.5px solid var(--border); }
+    .cognia-trust img { height: 48px; width: auto; }
+    .cognia-trust-text { font-size: 13px; color: #374151; line-height: 1.5; }
+    .cognia-trust-text strong { font-size: 14px; color: var(--dark); display: block; margin-bottom: 2px; }
+
+    /* ─── FINAL CTA ───────────────────────────────────────────────── */
+    .cta-section { background: var(--dark); padding: 80px 0; text-align: center; }
+    .cta-section h2 { font-size: clamp(28px,4vw,48px); font-weight: 800; letter-spacing: -1.5px; color: #fff; margin-bottom: 14px; }
+    .cta-section p { font-size: 17px; color: rgba(255,255,255,.7); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-cta-white { display: inline-block; padding: 16px 40px; background: #fff; color: var(--orange); font-family: 'Bricolage Grotesque', sans-serif; font-size: 17px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer; transition: opacity .2s; }
+    .btn-cta-white:hover { opacity: .9; }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────── */
+    footer { background: #151A18; color: rgba(255,255,255,.65); padding: 48px 0 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding-bottom: 32px; }
+    .footer-logo img { height: 24px; width: auto; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.3); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 20px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .cognia-footer { height: 40px; width: auto; filter: brightness(0) invert(.4); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,.35); }
+    .footer-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ─── STICKY MOBILE CTA ───────────────────────────────────────── */
+    .sticky-cta { display: none; }
+    @media (max-width: 768px) {
+      .sticky-cta { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: var(--orange); padding: 12px 20px; box-shadow: 0 -4px 20px rgba(0,0,0,.15); }
+      .sticky-cta button { display: block; width: 100%; background: #fff; color: var(--orange); font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; padding: 12px; border-radius: 10px; border: none; cursor: pointer; }
+      body { padding-bottom: 68px; }
+    }
+    @media (max-width: 1000px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .form-card { max-width: 480px; }
+      .prog-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 680px) {
+      .city-cards { grid-template-columns: 1fr; }
+      .frow { grid-template-columns: 1fr; }
+      .city-grid { grid-template-columns: 1fr 1fr; }
+      .tdiv { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d0dc0455a56ea3aef16_Novatio%20Primary%20Logo%20-%20Dark.svg"
+           alt="Novatio" onerror="this.src='https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d31c0455a56ea3af021_Novatio%20Primary%20Logo%20-%20White.svg'" />
+    </a>
+    <div class="nav-right">
+      <button class="btn-nav" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Reserve My Spot →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-deco deco-d1 float" alt="" src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" />
+  <img class="hero-deco deco-d2 float" alt="" src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" style="--fd:1.5s" />
+  <img class="hero-deco deco-d3 float" alt="" src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" style="--fd:3s" />
+
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">🤠 Texas · TEFA Approved · Grades 4–8</div>
+        <div class="hero-banner">
+          <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" alt="" class="banner-diamond" />
+          <span>Meet Novatio in Texas.</span>
+          <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" alt="" class="banner-diamond" />
+        </div>
+
+        <h1 class="hero-h1">Come see what AI-powered schooling looks like.</h1>
+        <p class="hero-sub">
+          Novatio is hosting free in-person events across Texas this spring. Meet our team, ask your questions, and get a real feel for how we're different. <strong>Tuition is fully covered by TEFA — $0 out of pocket, with ~$2,000 left over.</strong>
+        </p>
+
+        <div class="hero-tags">
+          <span class="htag green">✓ TEFA Approved</span>
+          <span class="htag amber">✓ Cognia Accredited</span>
+          <span class="htag">✓ Grades 4–8</span>
+          <span class="htag">✓ AI-Driven Learning</span>
+          <span class="htag">✓ No Academic Requirements</span>
+          <span class="htag">✓ Free to Attend</span>
+        </div>
+
+        <div style="margin-top:20px; padding:16px 20px; background:#fff; border-radius:14px; border-left:3px solid var(--orange);">
+          <div style="color:#F59E0B; font-size:13px; margin-bottom:6px;">★★★★★</div>
+          <p style="font-size:14px; font-style:italic; color:var(--dark); line-height:1.6; margin-bottom:6px;">"We were watching our son fall through the cracks until Novatio. Now he's excited about learning again and feels understood."</p>
+          <span style="font-size:12px; font-weight:700; color:var(--muted);">— Novatio Parent</span>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div id="register">
+        <div class="form-card">
+          <div class="form-badge">🎟️ Free · Limited spots per session</div>
+          <h3>Reserve Your Spot</h3>
+          <p class="fsub">Choose your city, date, and session time below.</p>
+
+          <form id="reg-form" onsubmit="handleSubmit(event)" novalidate>
+            <!-- Step 1: City -->
+            <div class="slot-step" id="step-city">
+              <div class="step-label">Step 1 — Select your city</div>
+              <div class="city-grid">
+                <button type="button" class="slot-btn" onclick="selectCity('austin')">
+                  <span class="sb-city">Austin</span>
+                  <span class="sb-date">Apr 26–27</span>
+                </button>
+                <button type="button" class="slot-btn" onclick="selectCity('houston')">
+                  <span class="sb-city">Houston</span>
+                  <span class="sb-date">May 10–11</span>
+                </button>
+                <button type="button" class="slot-btn" onclick="selectCity('san-antonio')">
+                  <span class="sb-city">San Antonio</span>
+                  <span class="sb-date">May 13–14</span>
+                </button>
+                <button type="button" class="slot-btn" onclick="selectCity('dallas')">
+                  <span class="sb-city">Dallas</span>
+                  <span class="sb-date">May 17–18</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Date -->
+            <div class="slot-step hidden" id="step-date">
+              <button type="button" class="step-back" onclick="goBack('city')">← Change city</button>
+              <div class="step-label">Step 2 — Select your date</div>
+              <div class="date-grid" id="date-options"></div>
+            </div>
+
+            <!-- Step 3: Time -->
+            <div class="slot-step hidden" id="step-time">
+              <button type="button" class="step-back" onclick="goBack('date')">← Change date</button>
+              <div class="step-label">Step 3 — Select your session</div>
+              <div class="time-grid">
+                <button type="button" class="slot-btn" onclick="selectTime('4pm')">
+                  <span class="sb-time">4:00 – 6:00pm CT</span>
+                  <span class="sb-date">Early session</span>
+                </button>
+                <button type="button" class="slot-btn" onclick="selectTime('6pm')">
+                  <span class="sb-time">6:00 – 8:00pm CT</span>
+                  <span class="sb-date">Evening session</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Divider + Contact fields -->
+            <div class="contact-fields" id="contact-fields">
+              <div class="divider"></div>
+              <div class="selected-slot-display" id="slot-display">
+                📍 <span id="slot-label-text">—</span>
+                <button type="button" onclick="resetSlot()">Change</button>
+              </div>
+
+              <div class="form-error" id="form-error">Something went wrong. Please try again.</div>
+
+              <div class="frow">
+                <div class="fg">
+                  <label for="first_name">First Name</label>
+                  <input type="text" id="first_name" name="first_name" placeholder="Jane" required />
+                </div>
+                <div class="fg">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" id="last_name" name="last_name" placeholder="Smith" required />
+                </div>
+              </div>
+              <div class="fg">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="jane@email.com" required />
+              </div>
+              <div class="fg">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
+              </div>
+              <div class="fg">
+                <label for="num_children">How many children will be attending?</label>
+                <input type="number" id="num_children" name="num_children" placeholder="1" min="1" max="10" required />
+              </div>
+
+              <input type="hidden" id="event_slot" name="event_slot" />
+
+              <p class="consent">By registering, you agree to receive messages from Novatio School about this event and our programs. Message &amp; data rates may apply. Reply STOP to opt out. <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>.</p>
+
+              <button type="submit" class="btn-submit" id="submit-btn">Reserve My Spot →</button>
+              <p class="form-trust">🔒 Free to attend · TEFA funded · Cognia accredited</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner container">
+    <div class="titem">
+      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/69c161be8edf46e0395d0d0b_Cognia_ACCRED-Badge-GREY-684x684%20(1).png" alt="Cognia Accredited" class="cognia-badge" />
+    </div>
+    <div class="tdiv"></div>
+    <div class="titem">✅ TEFA Approved</div>
+    <div class="tdiv"></div>
+    <div class="titem">🎓 Grades 4–8</div>
+    <div class="tdiv"></div>
+    <div class="titem">🤖 AI-Driven Learning</div>
+    <div class="tdiv"></div>
+    <div class="titem">📍 4 Texas Cities</div>
+  </div>
+</div>
+
+<!-- EVENTS GRID -->
+<section class="events-section" id="events">
+  <div class="container">
+    <div class="section-label">Spring 2026 Events</div>
+    <h2 class="section-h2">Coming to a city near you.</h2>
+    <p class="section-sub">Each event runs 4pm–8pm. Choose the 4–6pm or 6–8pm session. Free to attend — just reserve your spot.</p>
+
+    <div class="city-cards">
+
+      <!-- Austin -->
+      <div class="city-card">
+        <div class="city-card-name"><span class="city-flag">🤠</span>Austin</div>
+        <div class="event-row">
+          <div class="event-date-line">Saturday, April 26</div>
+          <div class="event-venue">Austin's</div>
+          <div class="event-capacity">Up to 150 per session</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('austin','apr26','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('austin','apr26','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="event-row">
+          <div class="event-date-line">Sunday, April 27</div>
+          <div class="event-venue">Ghostline Kitchen</div>
+          <div class="event-capacity">Up to 60 per session</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('austin','apr27','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="city-cta">
+          <button class="btn-city" onclick="preselectCity('austin')">Select an Austin Session →</button>
+        </div>
+      </div>
+
+      <!-- Houston -->
+      <div class="city-card">
+        <div class="city-card-name"><span class="city-flag">🚀</span>Houston</div>
+        <div class="event-row">
+          <div class="event-date-line">Sunday, May 10</div>
+          <div class="event-venue">Flip N Fun Center</div>
+          <div class="event-capacity">Up to 50 per session</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="event-row">
+          <div class="event-date-line">Monday, May 11</div>
+          <div class="event-venue">Venue to be announced</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('houston','may11','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="city-cta">
+          <button class="btn-city" onclick="preselectCity('houston')">Select a Houston Session →</button>
+        </div>
+      </div>
+
+      <!-- San Antonio -->
+      <div class="city-card">
+        <div class="city-card-name"><span class="city-flag">🌹</span>San Antonio</div>
+        <div class="event-row">
+          <div class="event-date-line">Wednesday, May 13</div>
+          <div class="event-venue">Venue to be announced</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="event-row">
+          <div class="event-date-line">Thursday, May 14</div>
+          <div class="event-venue">Venue to be announced</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="city-cta">
+          <button class="btn-city" onclick="preselectCity('san-antonio')">Select a San Antonio Session →</button>
+        </div>
+      </div>
+
+      <!-- Dallas -->
+      <div class="city-card">
+        <div class="city-card-name"><span class="city-flag">⭐</span>Dallas</div>
+        <div class="event-row">
+          <div class="event-date-line">Sunday, May 17</div>
+          <div class="event-venue">Venue to be announced</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('dallas','may17','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may17','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="event-row">
+          <div class="event-date-line">Monday, May 18</div>
+          <div class="event-venue">Venue to be announced</div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('dallas','may18','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may18','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="city-cta">
+          <button class="btn-city" onclick="preselectCity('dallas')">Select a Dallas Session →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM BRIEF -->
+<section class="program-section">
+  <div class="container">
+    <div class="prog-grid">
+      <div class="prog-left">
+        <div class="section-label">What is Novatio?</div>
+        <h2>A school built around your child — not the other way around.</h2>
+        <p>Novatio is a private, virtual, AI-driven school for grades 4–8. Students master core academics in just 2 hours each morning, then spend their afternoons on real-world skills and projects.</p>
+        <p>No academic requirements. No waitlist. No admissions test. Every family is welcome.</p>
+
+        <div class="tefa-box">
+          <h4>✅ TEFA covers 100% of tuition</h4>
+          <p>Texas families can use their TEFA funds ($10,474) to cover Novatio's $8,500 tuition — with approximately <strong>$2,000 left over</strong> for other educational expenses on the Odyssey marketplace.</p>
+        </div>
+
+        <div class="cognia-trust">
+          <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/69c161be8edf46e0395d0d0b_Cognia_ACCRED-Badge-GREY-684x684%20(1).png" alt="Cognia Accredited" />
+          <div class="cognia-trust-text">
+            <strong>Cognia Accredited</strong>
+            Novatio is fully accredited by Cognia, ensuring your child receives a recognized, high-quality education.
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-features">
+        <div class="prog-feat">
+          <div class="feat-icon blue">🤖</div>
+          <div class="feat-text">
+            <h4>AI-Powered Morning Academics</h4>
+            <p>2 focused hours of personalized learning — adapts to exactly where your child is. Students learn up to 4.5× faster than in traditional classrooms.</p>
+          </div>
+        </div>
+        <div class="prog-feat">
+          <div class="feat-icon purple">🎯</div>
+          <div class="feat-text">
+            <h4>Afternoon Clubs &amp; Real-World Skills</h4>
+            <p>Goal setting, coding, financial literacy, entrepreneurship, and more. Life skills built into the school day — no extra programs needed.</p>
+          </div>
+        </div>
+        <div class="prog-feat">
+          <div class="feat-icon orange">👤</div>
+          <div class="feat-text">
+            <h4>A Dedicated Mentor Guide</h4>
+            <p>Every student is paired with a real teacher who provides daily coaching, oversight, and support. Your child is truly seen and known.</p>
+          </div>
+        </div>
+        <div class="prog-feat">
+          <div class="feat-icon blue">🏫</div>
+          <div class="feat-text">
+            <h4>Social &amp; Collaborative</h4>
+            <p>Students work on group projects, build friendships, and connect with peers — all within the virtual school environment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Come meet us this spring.</h2>
+    <p>Free events across Texas. Bring your questions. No commitment required.</p>
+    <button class="btn-cta-white" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Reserve My Spot →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d31c0455a56ea3af021_Novatio%20Primary%20Logo%20-%20White.svg" alt="Novatio" />
+      </div>
+      <div class="footer-copy">© 2026 Novatio School · txevents.novatio.world</div>
+    </div>
+    <div class="footer-bottom">
+      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/69c161be8edf46e0395d0d0b_Cognia_ACCRED-Badge-GREY-684x684%20(1).png" alt="Cognia" class="cognia-footer" />
+      <div class="footer-links">
+        <a href="https://novatio.school" target="_blank">novatio.school</a>
+        <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta">
+  <button onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Reserve My Spot →</button>
+</div>
+
+<script>
+/* ─── SLOT DATA ─────────────────────────────────────────────── */
+const CITY_DATES = {
+  'austin':      [
+    { key:'apr26', label:'Saturday, April 26', venue:"Austin's",         capacity:'Up to 150/session' },
+    { key:'apr27', label:'Sunday, April 27',   venue:'Ghostline Kitchen', capacity:'Up to 60/session'  }
+  ],
+  'houston':     [
+    { key:'may10', label:'Sunday, May 10',    venue:'Flip N Fun Center',     capacity:'Up to 50/session' },
+    { key:'may11', label:'Monday, May 11',    venue:'Venue to be announced', capacity:'' }
+  ],
+  'san-antonio': [
+    { key:'may13', label:'Wednesday, May 13', venue:'Venue to be announced', capacity:'' },
+    { key:'may14', label:'Thursday, May 14',  venue:'Venue to be announced', capacity:'' }
+  ],
+  'dallas':      [
+    { key:'may17', label:'Sunday, May 17',  venue:'Venue to be announced', capacity:'' },
+    { key:'may18', label:'Monday, May 18',  venue:'Venue to be announced', capacity:'' }
+  ]
+};
+
+const SLOT_LABELS = {
+  'austin-apr26-4pm':      'Austin · Sat Apr 26 · 4–6pm · Austin\'s',
+  'austin-apr26-6pm':      'Austin · Sat Apr 26 · 6–8pm · Austin\'s',
+  'austin-apr27-4pm':      'Austin · Sun Apr 27 · 4–6pm · Ghostline Kitchen',
+  'austin-apr27-6pm':      'Austin · Sun Apr 27 · 6–8pm · Ghostline Kitchen',
+  'houston-may10-4pm':     'Houston · Sun May 10 · 4–6pm · Flip N Fun Center',
+  'houston-may10-6pm':     'Houston · Sun May 10 · 6–8pm · Flip N Fun Center',
+  'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm',
+  'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm',
+  'san-antonio-may13-4pm': 'San Antonio · Wed May 13 · 4–6pm',
+  'san-antonio-may13-6pm': 'San Antonio · Wed May 13 · 6–8pm',
+  'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm',
+  'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm',
+  'dallas-may17-4pm':      'Dallas · Sun May 17 · 4–6pm',
+  'dallas-may17-6pm':      'Dallas · Sun May 17 · 6–8pm',
+  'dallas-may18-4pm':      'Dallas · Mon May 18 · 4–6pm',
+  'dallas-may18-6pm':      'Dallas · Mon May 18 · 6–8pm'
+};
+
+/* ─── STATE ──────────────────────────────────────────────────── */
+let selCity = null, selDate = null, selTime = null;
+
+/* ─── SLOT PICKER ────────────────────────────────────────────── */
+function show(id)  { document.getElementById(id).classList.remove('hidden'); }
+function hide(id)  { document.getElementById(id).classList.add('hidden'); }
+
+function selectCity(city) {
+  selCity = city; selDate = null; selTime = null;
+  document.querySelectorAll('#step-city .slot-btn').forEach(b => b.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  // Populate date options
+  const grid = document.getElementById('date-options');
+  grid.innerHTML = '';
+  CITY_DATES[city].forEach(d => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot-btn';
+    btn.onclick = () => selectDate(d.key, btn);
+    btn.innerHTML = `<span class="sb-city">${d.label}</span><span class="sb-venue">${d.venue}</span>${d.capacity ? `<span class="sb-date">${d.capacity}</span>` : ''}`;
+    grid.appendChild(btn);
+  });
+
+  hide('step-city'); show('step-date');
+}
+
+function selectDate(dateKey, btn) {
+  selDate = dateKey;
+  document.querySelectorAll('#date-options .slot-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  hide('step-date'); show('step-time');
+}
+
+function selectTime(time) {
+  selTime = time;
+  const slotKey = `${selCity}-${selDate}-${time}`;
+  document.getElementById('event_slot').value = slotKey;
+  document.getElementById('slot-label-text').textContent = SLOT_LABELS[slotKey] || slotKey;
+  hide('step-time');
+  document.getElementById('contact-fields').classList.add('visible');
+}
+
+function goBack(to) {
+  if (to === 'city') { hide('step-date'); show('step-city'); selDate = null; selTime = null; }
+  if (to === 'date') { hide('step-time'); show('step-date'); selTime = null; }
+  document.getElementById('contact-fields').classList.remove('visible');
+}
+
+function resetSlot() {
+  selCity = null; selDate = null; selTime = null;
+  document.getElementById('event_slot').value = '';
+  document.getElementById('contact-fields').classList.remove('visible');
+  document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+  hide('step-date'); hide('step-time'); show('step-city');
+}
+
+/* ─── PRESELECT FROM EVENT GRID ──────────────────────────────── */
+function preselectCity(city) {
+  document.getElementById('register').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => {
+    // Simulate city selection
+    resetSlot();
+    const cityBtns = document.querySelectorAll('#step-city .slot-btn');
+    const cityMap = ['austin','houston','san-antonio','dallas'];
+    const idx = cityMap.indexOf(city);
+    if (idx >= 0) cityBtns[idx].click();
+  }, 400);
+}
+
+function preselectSlot(city, date, time) {
+  document.getElementById('register').scrollIntoView({behavior:'smooth'});
+  setTimeout(() => {
+    resetSlot();
+    const cityBtns = document.querySelectorAll('#step-city .slot-btn');
+    const cityMap = ['austin','houston','san-antonio','dallas'];
+    const idx = cityMap.indexOf(city);
+    if (idx >= 0) {
+      cityBtns[idx].click();
+      setTimeout(() => {
+        const dateBtns = document.querySelectorAll('#date-options .slot-btn');
+        const dates = CITY_DATES[city];
+        const dIdx = dates.findIndex(d => d.key === date);
+        if (dIdx >= 0) {
+          dateBtns[dIdx].click();
+          setTimeout(() => {
+            const timeBtns = document.querySelectorAll('#step-time .slot-btn');
+            if (time === '4pm') timeBtns[0].click();
+            else timeBtns[1].click();
+          }, 100);
+        }
+      }, 100);
+    }
+  }, 400);
+}
+
+/* ─── UTM CAPTURE ────────────────────────────────────────────── */
+(function() {
+  const params = new URLSearchParams(location.search);
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k => {
+    if (params.get(k)) localStorage.setItem('wf_' + k, params.get(k));
+  });
+})();
+
+/* ─── SUBMIT ─────────────────────────────────────────────────── */
+const HS_PORTAL = '49158869';
+const HS_FORM   = 'TX_EVENTS_FORM_GUID'; // ← replaced after HubSpot form creation
+const SUPA_URL  = 'https://muiutupxkfifrfbzyaom.supabase.co/rest/v1/tx_event_registrations';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11aXV0dXB4a2ZpZnJmYnp5YW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjQ4OTksImV4cCI6MjA5MDU0MDg5OX0.BIfJ4pEfdTaeYSc_b0pKD_zGpZFXVh2wYnjdlpXOTOc';
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form  = e.target;
+  const btn   = document.getElementById('submit-btn');
+  const errEl = document.getElementById('form-error');
+  errEl.style.display = 'none';
+
+  // Validate slot selected
+  const slotVal = document.getElementById('event_slot').value;
+  if (!slotVal) { errEl.textContent = 'Please select an event session.'; errEl.style.display = 'block'; return; }
+
+  btn.textContent = 'Reserving…'; btn.disabled = true;
+
+  const data = Object.fromEntries(new FormData(form));
+
+  const fields = [
+    { name: 'firstname',                    value: data.first_name   || '' },
+    { name: 'lastname',                     value: data.last_name    || '' },
+    { name: 'email',                        value: data.email        || '' },
+    { name: 'phone',                        value: data.phone        || '' },
+    { name: 'number_of_children_attending', value: data.num_children || '' },
+    { name: 'event_slot',                   value: slotVal                 },
+    { name: 'state',                        value: 'Texas'                 },
+    { name: 'state_form',                   value: 'Texas'                 }
+  ].filter(f => f.value !== '');
+
+  // Append UTMs
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k => {
+    const v = localStorage.getItem('wf_' + k);
+    if (v) fields.push({ name: k, value: v });
+  });
+
+  const hsPayload = {
+    fields,
+    context: { pageUri: location.href, pageName: document.title }
+  };
+
+  const supaPayload = {
+    firstname: data.first_name, lastname: data.last_name,
+    email: data.email, phone: data.phone,
+    num_children: data.num_children, event_slot: slotVal,
+    source: 'tx-events-lp', created_at: new Date().toISOString()
+  };
+
+  try {
+    const hsRes = await fetch(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL}/${HS_FORM}`,
+      { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(hsPayload) }
+    );
+    if (!hsRes.ok) throw new Error('HubSpot submission failed');
+
+    // Supabase is best-effort backup — don't block on failure
+    fetch(SUPA_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal' },
+      body: JSON.stringify(supaPayload)
+    }).catch(() => {});
+
+    const utmParams = new URLSearchParams();
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k => {
+      const v = localStorage.getItem('wf_' + k);
+      if (v) utmParams.set(k, v);
+    });
+    utmParams.set('slot', slotVal);
+    window.location.href = '/confirmed/?' + utmParams.toString();
+
+  } catch(err) {
+    console.error(err);
+    errEl.textContent = 'Something went wrong. Please try again or email us at hello@novatio.school.';
+    errEl.style.display = 'block';
+    btn.textContent = 'Reserve My Spot →';
+    btn.disabled = false;
+  }
+}
+</script>
+
+</body>
+</html>
