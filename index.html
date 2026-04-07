@@ -349,6 +349,8 @@
               <input type="hidden" id="event_slot" name="event_slot" />
               <input type="hidden" id="event_date" name="event_date" />
               <input type="hidden" id="event_city" name="event_city" />
+              <input type="hidden" id="event_venue" name="event_venue" />
+              <input type="hidden" id="event_time" name="event_time" />
 
               <p class="consent">By registering, you agree to receive messages from Novatio School about this event and our programs. Message &amp; data rates may apply. Reply STOP to opt out. <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>.</p>
 
@@ -633,22 +635,22 @@ const SLOT_LABELS = {
 
 // ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      address: 'Address TBD · Austin, TX',           familyFriendly: false },
-  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      address: 'Address TBD · Austin, TX',           familyFriendly: false },
-  'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      address: '3400 Comsouth Dr, Austin, TX 78744', familyFriendly: false },
-  'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      address: '3400 Comsouth Dr, Austin, TX 78744', familyFriendly: false },
-  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
-  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
-  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     address: '',                                   familyFriendly: false },
-  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     address: '',                                   familyFriendly: false },
-  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', address: '',                                   familyFriendly: false },
-  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', address: '',                                   familyFriendly: false },
-  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', address: '',                                   familyFriendly: false },
-  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', address: '',                                   familyFriendly: false },
-  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      address: '',                                   familyFriendly: false },
-  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      address: '',                                   familyFriendly: false },
-  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      address: '',                                   familyFriendly: false },
-  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      address: '',                                   familyFriendly: false },
+  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '4:00-6:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: false },
+  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: false },
+  'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '4:00-6:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
+  'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '6:00-8:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
+  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
+  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
+  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
+  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
+  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
+  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
 };
 
 /* ─── STATE ──────────────────────────────────────────────────── */
@@ -697,6 +699,8 @@ function selectTime(time) {
   const meta = SLOT_META[slotKey] || {};
   document.getElementById('event_date').value = meta.date || '';
   document.getElementById('event_city').value = meta.city || '';
+  document.getElementById('event_venue').value = meta.venue || '';
+  document.getElementById('event_time').value = meta.time || '';
   hide('step-time');
   document.getElementById('contact-fields').classList.add('visible');
 }
@@ -790,8 +794,10 @@ async function handleSubmit(e) {
     { name: 'phone',                        value: data.phone        || '' },
     { name: 'number_of_children_attending', value: data.num_children || '' },
     { name: 'event_slot',                   value: slotVal                 },
-    { name: 'event_date',                   value: document.getElementById('event_date').value || '' },
-    { name: 'event_city',                   value: document.getElementById('event_city').value || '' },
+    { name: 'event_date',                   value: document.getElementById('event_date').value  || '' },
+    { name: 'event_city',                   value: document.getElementById('event_city').value  || '' },
+    { name: 'event_venue',                  value: document.getElementById('event_venue').value || '' },
+    { name: 'event_time',                   value: document.getElementById('event_time').value  || '' },
     { name: 'state',                        value: 'Texas'                 },
     { name: 'state_form',                   value: 'Texas'                 }
   ].filter(f => f.value !== '');
