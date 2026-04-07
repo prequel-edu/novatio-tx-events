@@ -134,8 +134,12 @@
     .event-row { padding: 10px 0; border-bottom: 1px solid var(--border); }
     .event-row:last-of-type { border-bottom: none; }
     .event-date-line { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-    .event-venue { font-size: 13px; color: var(--muted); margin-bottom: 4px; font-style: italic; }
-    .event-capacity { font-size: 12px; color: var(--muted); }
+    .event-venue { font-size: 13px; color: var(--muted); margin-bottom: 1px; font-style: italic; }
+    .event-address { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .event-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 4px; margin-top: 3px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 999px; }
+    .badge-limited { background: #FFF0EB; color: #C73A00; border: 1px solid #FECBB8; }
+    .badge-family { background: #EDF6FF; color: #1A5FA8; border: 1px solid #BAD7F7; }
     .event-times { display: flex; gap: 8px; margin-top: 8px; }
     .time-chip { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--cream); color: var(--dark); border: 1px solid var(--border); cursor: pointer; transition: background .15s, border-color .15s; }
     .time-chip:hover, .time-chip.hl { background: var(--orange); color: #fff; border-color: var(--orange); }
@@ -390,7 +394,10 @@
         <div class="event-row">
           <div class="event-date-line">Saturday, April 26</div>
           <div class="event-venue">Austin's</div>
-          <div class="event-capacity">Up to 150 per session</div>
+          <div class="event-address">Address TBD · Austin, TX</div>
+          <div class="event-badges">
+            <span class="badge badge-limited">⚡ 150 spaces per session</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('austin','apr26','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('austin','apr26','6pm')">6–8pm</span>
@@ -398,8 +405,11 @@
         </div>
         <div class="event-row">
           <div class="event-date-line">Sunday, April 27</div>
-          <div class="event-venue">Ghostline Kitchen</div>
-          <div class="event-capacity">Up to 60 per session</div>
+          <div class="event-venue">GhostLine Kitchens</div>
+          <div class="event-address">3400 Comsouth Dr · Austin, TX 78744</div>
+          <div class="event-badges">
+            <span class="badge badge-limited">⚡ Limited — 60 spaces per session</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('austin','apr27','6pm')">6–8pm</span>
@@ -415,8 +425,11 @@
         <div class="city-card-name"><span class="city-flag">🚀</span>Houston</div>
         <div class="event-row">
           <div class="event-date-line">Sunday, May 10</div>
-          <div class="event-venue">Flip N Fun Center</div>
-          <div class="event-capacity">Up to 50 per session</div>
+          <div class="event-venue">Flip N' Fun Center</div>
+          <div class="event-address">5379 W Richey Rd · Houston, TX 77066</div>
+          <div class="event-badges">
+            <span class="badge badge-limited">⚡ Limited — 50 spaces per session</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
@@ -582,20 +595,20 @@
 /* ─── SLOT DATA ─────────────────────────────────────────────── */
 const CITY_DATES = {
   'austin':      [
-    { key:'apr26', label:'Saturday, April 26', venue:"Austin's",         capacity:'Up to 150/session' },
-    { key:'apr27', label:'Sunday, April 27',   venue:'Ghostline Kitchen', capacity:'Up to 60/session'  }
+    { key:'apr26', label:'Saturday, April 26', venue:"Austin's",           address:'Address TBD · Austin, TX',               spacesRemaining: 150, limited: false, familyFriendly: false },
+    { key:'apr27', label:'Sunday, April 27',   venue:'GhostLine Kitchens', address:'3400 Comsouth Dr · Austin, TX 78744',     spacesRemaining:  60, limited: true,  familyFriendly: false }
   ],
   'houston':     [
-    { key:'may10', label:'Sunday, May 10',    venue:'Flip N Fun Center',     capacity:'Up to 50/session' },
-    { key:'may11', label:'Monday, May 11',    venue:'Venue to be announced', capacity:'' }
+    { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: false },
+    { key:'may11', label:'Monday, May 11',    venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
   ],
   'san-antonio': [
-    { key:'may13', label:'Wednesday, May 13', venue:'Venue to be announced', capacity:'' },
-    { key:'may14', label:'Thursday, May 14',  venue:'Venue to be announced', capacity:'' }
+    { key:'may13', label:'Wednesday, May 13', venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
+    { key:'may14', label:'Thursday, May 14',  venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
   ],
   'dallas':      [
-    { key:'may17', label:'Sunday, May 17',  venue:'Venue to be announced', capacity:'' },
-    { key:'may18', label:'Monday, May 18',  venue:'Venue to be announced', capacity:'' }
+    { key:'may17', label:'Sunday, May 17',  venue:'Venue to be announced',   address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
+    { key:'may18', label:'Monday, May 18',  venue:'Venue to be announced',   address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
   ]
 };
 
@@ -618,24 +631,24 @@ const SLOT_LABELS = {
   'dallas-may18-6pm':      'Dallas · Mon May 18 · 6–8pm'
 };
 
-// ISO dates and city values for each slot (set as hidden fields at submission)
+// ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin' },
-  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin' },
-  'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin' },
-  'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin' },
-  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston' },
-  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston' },
-  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston' },
-  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston' },
-  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio' },
-  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio' },
-  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio' },
-  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio' },
-  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas' },
-  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas' },
-  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas' },
-  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas' },
+  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      address: 'Address TBD · Austin, TX',           familyFriendly: false },
+  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      address: 'Address TBD · Austin, TX',           familyFriendly: false },
+  'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      address: '3400 Comsouth Dr, Austin, TX 78744', familyFriendly: false },
+  'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      address: '3400 Comsouth Dr, Austin, TX 78744', familyFriendly: false },
+  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
+  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
+  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     address: '',                                   familyFriendly: false },
+  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     address: '',                                   familyFriendly: false },
+  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', address: '',                                   familyFriendly: false },
+  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', address: '',                                   familyFriendly: false },
+  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', address: '',                                   familyFriendly: false },
+  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', address: '',                                   familyFriendly: false },
+  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      address: '',                                   familyFriendly: false },
+  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      address: '',                                   familyFriendly: false },
+  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      address: '',                                   familyFriendly: false },
+  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      address: '',                                   familyFriendly: false },
 };
 
 /* ─── STATE ──────────────────────────────────────────────────── */
@@ -658,7 +671,11 @@ function selectCity(city) {
     btn.type = 'button';
     btn.className = 'slot-btn';
     btn.onclick = () => selectDate(d.key, btn);
-    btn.innerHTML = `<span class="sb-city">${d.label}</span><span class="sb-venue">${d.venue}</span>${d.capacity ? `<span class="sb-date">${d.capacity}</span>` : ''}`;
+    const spaceBadge = d.limited
+      ? `<span class="badge badge-limited" style="margin-top:4px;display:inline-flex">⚡ Limited — ${d.spacesRemaining} spaces</span>`
+      : (d.spacesRemaining ? `<span style="font-size:11px;color:var(--muted);display:block;margin-top:3px">${d.spacesRemaining} spaces per session</span>` : '');
+    const familyBadge = d.familyFriendly ? `<span class="badge badge-family" style="margin-top:4px;display:inline-flex">👨‍👩‍👧 Family friendly</span>` : '';
+    btn.innerHTML = `<span class="sb-city">${d.label}</span><span class="sb-venue">${d.venue}</span>${spaceBadge}${familyBadge}`;
     grid.appendChild(btn);
   });
 

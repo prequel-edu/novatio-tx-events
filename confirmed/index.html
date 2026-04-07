@@ -143,7 +143,7 @@
       <div class="expect-item"><span class="ei">🎓</span><span>See how the school day works: 2-hour academics + afternoon clubs.</span></div>
       <div class="expect-item"><span class="ei">💰</span><span>Get all your TEFA questions answered — how to apply, timelines, what's covered.</span></div>
       <div class="expect-item"><span class="ei">📝</span><span>No commitment required. Come curious, leave informed.</span></div>
-      <div class="expect-item"><span class="ei">👨‍👩‍👧</span><span>Bring the family — kids are welcome.</span></div>
+      <div class="expect-item" id="family-line" style="display:none"><span class="ei">👨‍👩‍👧</span><span>Bring the kids — this event is family friendly!</span></div>
     </div>
 
   </div>
@@ -156,22 +156,22 @@
 <script>
 /* ─── EVENT DATA ─────────────────────────────────────────────── */
 const EVENTS = {
-  'austin-apr26-4pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'4:00–6:00pm CT', venue:"Austin's",           address:'Details TBA',                  gcalDate:'20260426', gcalStart:'160000', gcalEnd:'180000' },
-  'austin-apr26-6pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'6:00–8:00pm CT', venue:"Austin's",           address:'Details TBA',                  gcalDate:'20260426', gcalStart:'180000', gcalEnd:'200000' },
-  'austin-apr27-4pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'4:00–6:00pm CT', venue:'Ghostline Kitchen',   address:'Details TBA',                  gcalDate:'20260427', gcalStart:'160000', gcalEnd:'180000' },
-  'austin-apr27-6pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'6:00–8:00pm CT', venue:'Ghostline Kitchen',   address:'Details TBA',                  gcalDate:'20260427', gcalStart:'180000', gcalEnd:'200000' },
-  'houston-may10-4pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'4:00–6:00pm CT', venue:'Flip N Fun Center',   address:'Details TBA',                  gcalDate:'20260510', gcalStart:'160000', gcalEnd:'180000' },
-  'houston-may10-6pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'6:00–8:00pm CT', venue:'Flip N Fun Center',   address:'Details TBA',                  gcalDate:'20260510', gcalStart:'180000', gcalEnd:'200000' },
-  'houston-may11-4pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260511', gcalStart:'160000', gcalEnd:'180000' },
-  'houston-may11-6pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260511', gcalStart:'180000', gcalEnd:'200000' },
-  'san-antonio-may13-4pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260513', gcalStart:'160000', gcalEnd:'180000' },
-  'san-antonio-may13-6pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260513', gcalStart:'180000', gcalEnd:'200000' },
-  'san-antonio-may14-4pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260514', gcalStart:'160000', gcalEnd:'180000' },
-  'san-antonio-may14-6pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260514', gcalStart:'180000', gcalEnd:'200000' },
-  'dallas-may17-4pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260517', gcalStart:'160000', gcalEnd:'180000' },
-  'dallas-may17-6pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260517', gcalStart:'180000', gcalEnd:'200000' },
-  'dallas-may18-4pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260518', gcalStart:'160000', gcalEnd:'180000' },
-  'dallas-may18-6pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced', address:'',                           gcalDate:'20260518', gcalStart:'180000', gcalEnd:'200000' },
+  'austin-apr26-4pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'4:00–6:00pm CT', venue:"Austin's",              address:'Address TBD · Austin, TX',             gcalDate:'20260426', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'austin-apr26-6pm':      { city:'Austin',       date:'Saturday, April 26, 2026',   time:'6:00–8:00pm CT', venue:"Austin's",              address:'Address TBD · Austin, TX',             gcalDate:'20260426', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'austin-apr27-4pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'4:00–6:00pm CT', venue:'GhostLine Kitchens',     address:'3400 Comsouth Dr, Austin, TX 78744',   gcalDate:'20260427', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'austin-apr27-6pm':      { city:'Austin',       date:'Sunday, April 27, 2026',     time:'6:00–8:00pm CT', venue:'GhostLine Kitchens',     address:'3400 Comsouth Dr, Austin, TX 78744',   gcalDate:'20260427', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'houston-may10-4pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'4:00–6:00pm CT', venue:"Flip N' Fun Center",     address:'5379 W Richey Rd, Houston, TX 77066',  gcalDate:'20260510', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'houston-may10-6pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'6:00–8:00pm CT', venue:"Flip N' Fun Center",     address:'5379 W Richey Rd, Houston, TX 77066',  gcalDate:'20260510', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'houston-may11-4pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260511', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'houston-may11-6pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260511', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'san-antonio-may13-4pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'4:00–6:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260513', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'san-antonio-may13-6pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'6:00–8:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260513', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'san-antonio-may14-4pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'4:00–6:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260514', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'san-antonio-may14-6pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'6:00–8:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260514', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'dallas-may17-4pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260517', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'dallas-may17-6pm':      { city:'Dallas',       date:'Sunday, May 17, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260517', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
+  'dallas-may18-4pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'4:00–6:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260518', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'dallas-may18-6pm':      { city:'Dallas',       date:'Monday, May 18, 2026',       time:'6:00–8:00pm CT', venue:'Venue to be announced',  address:'',                                     gcalDate:'20260518', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
 };
 
 /* ─── RENDER PAGE ────────────────────────────────────────────── */
@@ -188,6 +188,7 @@ const EVENTS = {
     if (!ev.address) document.getElementById('venue-address').style.display = 'none';
     document.getElementById('event-date').textContent = ev.date;
     document.getElementById('event-time').textContent = ev.time;
+    if (ev.familyFriendly) document.getElementById('family-line').style.display = 'flex';
 
     // Render add-to-calendar button
     const isTBA = ev.venue === 'Venue to be announced';
