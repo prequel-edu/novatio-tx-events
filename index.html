@@ -343,6 +343,8 @@
               </div>
 
               <input type="hidden" id="event_slot" name="event_slot" />
+              <input type="hidden" id="event_date" name="event_date" />
+              <input type="hidden" id="event_city" name="event_city" />
 
               <p class="consent">By registering, you agree to receive messages from Novatio School about this event and our programs. Message &amp; data rates may apply. Reply STOP to opt out. <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>.</p>
 
@@ -616,6 +618,26 @@ const SLOT_LABELS = {
   'dallas-may18-6pm':      'Dallas · Mon May 18 · 6–8pm'
 };
 
+// ISO dates and city values for each slot (set as hidden fields at submission)
+const SLOT_META = {
+  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin' },
+  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin' },
+  'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin' },
+  'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin' },
+  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston' },
+  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston' },
+  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston' },
+  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston' },
+  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio' },
+  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio' },
+  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio' },
+  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio' },
+  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas' },
+  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas' },
+  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas' },
+  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas' },
+};
+
 /* ─── STATE ──────────────────────────────────────────────────── */
 let selCity = null, selDate = null, selTime = null;
 
@@ -655,6 +677,9 @@ function selectTime(time) {
   const slotKey = `${selCity}-${selDate}-${time}`;
   document.getElementById('event_slot').value = slotKey;
   document.getElementById('slot-label-text').textContent = SLOT_LABELS[slotKey] || slotKey;
+  const meta = SLOT_META[slotKey] || {};
+  document.getElementById('event_date').value = meta.date || '';
+  document.getElementById('event_city').value = meta.city || '';
   hide('step-time');
   document.getElementById('contact-fields').classList.add('visible');
 }
@@ -748,6 +773,8 @@ async function handleSubmit(e) {
     { name: 'phone',                        value: data.phone        || '' },
     { name: 'number_of_children_attending', value: data.num_children || '' },
     { name: 'event_slot',                   value: slotVal                 },
+    { name: 'event_date',                   value: document.getElementById('event_date').value || '' },
+    { name: 'event_city',                   value: document.getElementById('event_city').value || '' },
     { name: 'state',                        value: 'Texas'                 },
     { name: 'state_form',                   value: 'Texas'                 }
   ].filter(f => f.value !== '');
