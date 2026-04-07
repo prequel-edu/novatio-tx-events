@@ -794,7 +794,7 @@ async function handleSubmit(e) {
     { name: 'phone',                        value: data.phone        || '' },
     { name: 'number_of_children_attending', value: data.num_children || '' },
     { name: 'event_slot',                   value: slotVal                 },
-    { name: 'event_date',                   value: document.getElementById('event_date').value  || '' },
+    { name: 'event_date',                   value: document.getElementById('event_date').value ? String(new Date(document.getElementById('event_date').value).getTime()) : '' },
     { name: 'event_city',                   value: document.getElementById('event_city').value  || '' },
     { name: 'event_venue',                  value: document.getElementById('event_venue').value || '' },
     { name: 'event_time',                   value: document.getElementById('event_time').value  || '' },
