@@ -350,6 +350,7 @@
               <input type="hidden" id="event_date" name="event_date" />
               <input type="hidden" id="event_city" name="event_city" />
               <input type="hidden" id="event_venue" name="event_venue" />
+              <input type="hidden" id="event_address" name="event_address" />
               <input type="hidden" id="event_time" name="event_time" />
 
               <p class="consent">By registering, you agree to receive messages from Novatio School about this event and our programs. Message &amp; data rates may apply. Reply STOP to opt out. <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>.</p>
@@ -723,6 +724,7 @@ function selectTime(time) {
   document.getElementById('event_date').value = meta.date || '';
   document.getElementById('event_city').value = meta.city || '';
   document.getElementById('event_venue').value = meta.venue || '';
+  document.getElementById('event_address').value = meta.address || '';
   document.getElementById('event_time').value = meta.time || '';
   hide('step-time');
   document.getElementById('contact-fields').classList.add('visible');
@@ -857,6 +859,7 @@ async function handleSubmit(e) {
     { name: 'event_date',                   value: document.getElementById('event_date').value ? String(new Date(document.getElementById('event_date').value).getTime()) : '' },
     { name: 'event_city',                   value: document.getElementById('event_city').value  || '' },
     { name: 'event_venue',                  value: document.getElementById('event_venue').value || '' },
+    { name: 'event_address',               value: document.getElementById('event_address').value || '' },
     { name: 'event_time',                   value: document.getElementById('event_time').value  || '' },
     { name: 'state',                        value: 'Texas'                 },
     { name: 'state_form',                   value: 'Texas'                 }
