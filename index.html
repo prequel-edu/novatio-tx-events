@@ -341,9 +341,9 @@
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
               </div>
-              <div class="fg">
+              <div class="fg" id="children-field-group">
                 <label for="num_children">How many children will be attending?</label>
-                <input type="number" id="num_children" name="num_children" placeholder="1" min="1" max="10" required />
+                <input type="number" id="num_children" name="num_children" placeholder="1" min="1" max="10" />
               </div>
 
               <input type="hidden" id="event_slot" name="event_slot" />
@@ -398,7 +398,8 @@
           <div class="event-venue">Austin's</div>
           <div class="event-address">Address TBD · Austin, TX</div>
           <div class="event-badges">
-            <span class="badge badge-limited">⚡ 150 spaces per session</span>
+            <span class="badge badge-limited" id="rem-austin-apr26">⚡ 150 spaces remaining</span>
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('austin','apr26','4pm')">4–6pm</span>
@@ -410,7 +411,7 @@
           <div class="event-venue">GhostLine Kitchens</div>
           <div class="event-address">3400 Comsouth Dr · Austin, TX 78744</div>
           <div class="event-badges">
-            <span class="badge badge-limited">⚡ Limited: 60 spaces per session</span>
+            <span class="badge badge-limited" id="rem-austin-apr27">⚡ 60 spaces remaining</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
@@ -430,7 +431,7 @@
           <div class="event-venue">Flip N' Fun Center</div>
           <div class="event-address">5379 W Richey Rd · Houston, TX 77066</div>
           <div class="event-badges">
-            <span class="badge badge-limited">⚡ Limited: 50 spaces per session</span>
+            <span class="badge badge-limited" id="rem-houston-may10">⚡ 50 spaces remaining</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
@@ -439,7 +440,11 @@
         </div>
         <div class="event-row">
           <div class="event-date-line">Monday, May 11</div>
-          <div class="event-venue">Venue to be announced</div>
+          <div class="event-venue">Mission Control Coworking Space</div>
+          <div class="event-badges">
+            <span class="badge badge-limited" id="rem-houston-may11">⚡ 80 spaces remaining</span>
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('houston','may11','6pm')">6–8pm</span>
@@ -463,7 +468,11 @@
         </div>
         <div class="event-row">
           <div class="event-date-line">Thursday, May 14</div>
-          <div class="event-venue">Venue to be announced</div>
+          <div class="event-venue">The Stone Manor</div>
+          <div class="event-badges">
+            <span class="badge badge-limited" id="rem-san-antonio-may14">⚡ 100 spaces remaining</span>
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('san-antonio','may14','6pm')">6–8pm</span>
@@ -597,16 +606,16 @@
 /* ─── SLOT DATA ─────────────────────────────────────────────── */
 const CITY_DATES = {
   'austin':      [
-    { key:'apr26', label:'Saturday, April 26', venue:"Austin's",           address:'Address TBD · Austin, TX',               spacesRemaining: 150, limited: false, familyFriendly: false },
+    { key:'apr26', label:'Saturday, April 26', venue:"Austin's",           address:'Address TBD · Austin, TX',               spacesRemaining: 150, limited: false, familyFriendly: true },
     { key:'apr27', label:'Sunday, April 27',   venue:'GhostLine Kitchens', address:'3400 Comsouth Dr · Austin, TX 78744',     spacesRemaining:  60, limited: true,  familyFriendly: false }
   ],
   'houston':     [
     { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: false },
-    { key:'may11', label:'Monday, May 11',    venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
+    { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'Houston, TX',            spacesRemaining:  80, limited: false, familyFriendly: true }
   ],
   'san-antonio': [
     { key:'may13', label:'Wednesday, May 13', venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
-    { key:'may14', label:'Thursday, May 14',  venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
+    { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'San Antonio, TX',                spacesRemaining: 100, limited: false, familyFriendly: true }
   ],
   'dallas':      [
     { key:'may17', label:'Sunday, May 17',  venue:'Venue to be announced',   address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
@@ -621,12 +630,12 @@ const SLOT_LABELS = {
   'austin-apr27-6pm':      'Austin · Sun Apr 27 · 6–8pm · Ghostline Kitchen',
   'houston-may10-4pm':     'Houston · Sun May 10 · 4–6pm · Flip N Fun Center',
   'houston-may10-6pm':     'Houston · Sun May 10 · 6–8pm · Flip N Fun Center',
-  'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm',
-  'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm',
+  'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm · Mission Control Coworking Space',
+  'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm · Mission Control Coworking Space',
   'san-antonio-may13-4pm': 'San Antonio · Wed May 13 · 4–6pm',
   'san-antonio-may13-6pm': 'San Antonio · Wed May 13 · 6–8pm',
-  'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm',
-  'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm',
+  'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm · The Stone Manor',
+  'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm · The Stone Manor',
   'dallas-may17-4pm':      'Dallas · Sun May 17 · 4–6pm',
   'dallas-may17-6pm':      'Dallas · Sun May 17 · 6–8pm',
   'dallas-may18-4pm':      'Dallas · Mon May 18 · 4–6pm',
@@ -635,26 +644,35 @@ const SLOT_LABELS = {
 
 // ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '4:00-6:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: false },
-  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: false },
+  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '4:00-6:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: true },
+  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: true },
   'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '4:00-6:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '6:00-8:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
   'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
-  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
-  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: 'Houston, TX',             familyFriendly: true },
+  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: 'Houston, TX',             familyFriendly: true },
   'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
   'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
-  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
-  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
+  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
   'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
   'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
   'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
   'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
 };
 
+const SLOT_CAPACITY = {
+  'austin-apr26-4pm':150,'austin-apr26-6pm':150,
+  'austin-apr27-4pm':60,'austin-apr27-6pm':60,
+  'houston-may10-4pm':50,'houston-may10-6pm':50,
+  'houston-may11-4pm':80,'houston-may11-6pm':80,
+  'san-antonio-may14-4pm':100,'san-antonio-may14-6pm':100
+};
+
 /* ─── STATE ──────────────────────────────────────────────────── */
 let selCity = null, selDate = null, selTime = null;
+let slotRemaining = Object.assign({}, SLOT_CAPACITY);
 
 /* ─── SLOT PICKER ────────────────────────────────────────────── */
 function show(id)  { document.getElementById(id).classList.remove('hidden'); }
@@ -673,9 +691,14 @@ function selectCity(city) {
     btn.type = 'button';
     btn.className = 'slot-btn';
     btn.onclick = () => selectDate(d.key, btn);
-    const spaceBadge = d.limited
-      ? `<span class="badge badge-limited" style="margin-top:4px;display:inline-flex">⚡ Limited: ${d.spacesRemaining} spaces</span>`
-      : (d.spacesRemaining ? `<span style="font-size:11px;color:var(--muted);display:block;margin-top:3px">${d.spacesRemaining} spaces per session</span>` : '');
+    const slotKey4 = `${city}-${d.key}-4pm`;
+    const slotKey6 = `${city}-${d.key}-6pm`;
+    const rem4 = slotRemaining[slotKey4];
+    const rem6 = slotRemaining[slotKey6];
+    const displayRem = (rem4 !== undefined && rem6 !== undefined) ? Math.min(rem4, rem6) : (rem4 ?? rem6);
+    const spaceBadge = displayRem !== undefined
+      ? `<span class="badge badge-limited" style="margin-top:4px;display:inline-flex">⚡ ${displayRem} spaces remaining</span>`
+      : '';
     const familyBadge = d.familyFriendly ? `<span class="badge badge-family" style="margin-top:4px;display:inline-flex">👨‍👩‍👧 Family friendly</span>` : '';
     btn.innerHTML = `<span class="sb-city">${d.label}</span><span class="sb-venue">${d.venue}</span>${spaceBadge}${familyBadge}`;
     grid.appendChild(btn);
@@ -703,6 +726,17 @@ function selectTime(time) {
   document.getElementById('event_time').value = meta.time || '';
   hide('step-time');
   document.getElementById('contact-fields').classList.add('visible');
+
+  const childrenGroup = document.getElementById('children-field-group');
+  const numChildren   = document.getElementById('num_children');
+  if (meta.familyFriendly) {
+    childrenGroup.style.display = '';
+    numChildren.required = true;
+  } else {
+    childrenGroup.style.display = 'none';
+    numChildren.required = false;
+    numChildren.value = '';
+  }
 }
 
 function goBack(to) {
@@ -756,6 +790,32 @@ function preselectSlot(city, date, time) {
       }, 100);
     }
   }, 400);
+}
+
+/* ─── LIVE SPACE COUNTS ──────────────────────────────────────── */
+async function loadCounts() {
+  try {
+    const res = await fetch(`${SUPA_URL}?select=event_slot`, {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+    });
+    if (!res.ok) return;
+    const rows = await res.json();
+    const counts = {};
+    rows.forEach(r => { if (r.event_slot) counts[r.event_slot] = (counts[r.event_slot] || 0) + 1; });
+    Object.keys(SLOT_CAPACITY).forEach(k => {
+      slotRemaining[k] = Math.max(0, SLOT_CAPACITY[k] - (counts[k] || 0));
+    });
+    // Update static event card badges (use min of 4pm/6pm for that day)
+    const dayKeys = ['austin-apr26','austin-apr27','houston-may10','houston-may11','san-antonio-may14'];
+    dayKeys.forEach(day => {
+      const el = document.getElementById('rem-' + day);
+      if (!el) return;
+      const r4 = slotRemaining[day + '-4pm'];
+      const r6 = slotRemaining[day + '-6pm'];
+      const rem = (r4 !== undefined && r6 !== undefined) ? Math.min(r4, r6) : (r4 ?? r6);
+      if (rem !== undefined) el.textContent = `⚡ ${rem} spaces remaining`;
+    });
+  } catch(e) {}
 }
 
 /* ─── UTM CAPTURE ────────────────────────────────────────────── */
@@ -850,6 +910,8 @@ async function handleSubmit(e) {
     btn.disabled = false;
   }
 }
+
+loadCounts();
 </script>
 
 </body>
