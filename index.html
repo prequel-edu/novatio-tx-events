@@ -831,13 +831,17 @@ function preselectSlot(city, date, time) {
 /* ─── LIVE SPACE COUNTS ──────────────────────────────────────── */
 async function loadCounts() {
   try {
-    const res = await fetch(`${SUPA_URL}?select=event_slot`, {
+    const res = await fetch(`${SUPA_URL}?select=event_slot,number_of_children`, {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
     });
     if (!res.ok) return;
     const rows = await res.json();
     const counts = {};
-    rows.forEach(r => { if (r.event_slot) counts[r.event_slot] = (counts[r.event_slot] || 0) + 1; });
+    rows.forEach(r => {
+      if (!r.event_slot) return;
+      const kids = parseInt(r.number_of_children, 10) || 0;
+      counts[r.event_slot] = (counts[r.event_slot] || 0) + 1 + kids;
+    });
     Object.keys(SLOT_CAPACITY).forEach(k => {
       slotRemaining[k] = Math.max(0, SLOT_CAPACITY[k] - (counts[k] || 0));
     });
