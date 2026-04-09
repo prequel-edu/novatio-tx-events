@@ -446,7 +446,6 @@
           <div class="event-address">12121 Westheimer Rd Suite B 300, Houston, TX 77077</div>
           <div class="event-badges">
             <span class="badge badge-limited" id="rem-houston-may11">⚡ 80 spaces remaining</span>
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
@@ -480,7 +479,6 @@
           <div class="event-address">215 Coca-Cola Pl, San Antonio, TX 78220</div>
           <div class="event-badges">
             <span class="badge badge-limited" id="rem-san-antonio-may14">⚡ 100 spaces remaining</span>
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
@@ -614,7 +612,7 @@
       <div class="footer-logo">
         <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d31c0455a56ea3af021_Novatio%20Primary%20Logo%20-%20White.svg" alt="Novatio" />
       </div>
-      <div class="footer-copy">© 2026 Novatio School · txevents.novatio.world</div>
+      <div class="footer-copy">© 2026 Novatio School · txevents.novatio.school</div>
     </div>
     <div class="footer-bottom">
       <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/69c161be8edf46e0395d0d0b_Cognia_ACCRED-Badge-GREY-684x684%20(1).png" alt="Cognia" class="cognia-footer" />
@@ -640,11 +638,11 @@ const CITY_DATES = {
   ],
   'houston':     [
     { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: true },
-    { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',            spacesRemaining:  80, limited: false, familyFriendly: true }
+    { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',            spacesRemaining:  80, limited: false, familyFriendly: false }
   ],
   'san-antonio': [
     { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: true },
-    { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'215 Coca-Cola Pl, San Antonio, TX 78220',                spacesRemaining: 100, limited: false, familyFriendly: true }
+    { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'215 Coca-Cola Pl, San Antonio, TX 78220',                spacesRemaining: 100, limited: false, familyFriendly: false }
   ],
   'dallas':      [
     { key:'may17', label:'Sunday, May 17',    venue:'Main Event Grand Prairie', address:'3106 State Hwy 161, Grand Prairie, TX 75052', spacesRemaining: 0, limited: false, familyFriendly: true },
@@ -682,12 +680,12 @@ const SLOT_META = {
   'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '6:00-8:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
   'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
-  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: 'Houston, TX',             familyFriendly: true },
-  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: 'Houston, TX',             familyFriendly: true },
+  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
+  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
   'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
   'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
-  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
-  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
+  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: '215 Coca-Cola Pl, San Antonio, TX 78220',               familyFriendly: false },
+  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: '215 Coca-Cola Pl, San Antonio, TX 78220',               familyFriendly: false },
   'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '4:00-6:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
   'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '6:00-8:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
   'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Krimson Park',             time: '4:00-6:00pm CT', address: '208 N Market St # 300, Dallas, TX 75202',    familyFriendly: false },
