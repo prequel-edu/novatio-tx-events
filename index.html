@@ -284,8 +284,8 @@
                   <span class="sb-date">May 13–14</span>
                 </button>
                 <button type="button" class="slot-btn" onclick="selectCity('dallas')">
-                  <span class="sb-city">Dallas</span>
-                  <span class="sb-date">May 17–18</span>
+                  <span class="sb-city">Dallas / Ft Worth</span>
+                  <span class="sb-date">May 17–19</span>
                 </button>
               </div>
             </div>
@@ -433,6 +433,7 @@
           <div class="event-address">5379 W Richey Rd · Houston, TX 77066</div>
           <div class="event-badges">
             <span class="badge badge-limited" id="rem-houston-may10">⚡ 50 spaces remaining</span>
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
@@ -466,6 +467,7 @@
           <div class="event-address">4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201</div>
           <div class="event-badges">
             <span class="badge badge-limited" id="rem-san-antonio-may13">⚡ 80 spaces remaining</span>
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
@@ -490,12 +492,16 @@
         </div>
       </div>
 
-      <!-- Dallas -->
+      <!-- Dallas / Ft Worth -->
       <div class="city-card">
-        <div class="city-card-name"><span class="city-flag">⭐</span>Dallas</div>
+        <div class="city-card-name"><span class="city-flag">⭐</span>Dallas / Ft Worth</div>
         <div class="event-row">
           <div class="event-date-line">Sunday, May 17</div>
-          <div class="event-venue">Venue to be announced</div>
+          <div class="event-venue">Main Event Grand Prairie</div>
+          <div class="event-address">3106 State Hwy 161, Grand Prairie, TX 75052</div>
+          <div class="event-badges">
+            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('dallas','may17','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('dallas','may17','6pm')">6–8pm</span>
@@ -503,14 +509,30 @@
         </div>
         <div class="event-row">
           <div class="event-date-line">Monday, May 18</div>
-          <div class="event-venue">Venue to be announced</div>
+          <div class="event-venue">Krimson Park</div>
+          <div class="event-address">208 N Market St # 300, Dallas, TX 75202</div>
+          <div class="event-badges">
+            <span class="badge badge-limited" id="rem-dallas-may18">⚡ 400 spaces remaining</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('dallas','may18','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('dallas','may18','6pm')">6–8pm</span>
           </div>
         </div>
+        <div class="event-row">
+          <div class="event-date-line">Tuesday, May 19</div>
+          <div class="event-venue">WED Spaces</div>
+          <div class="event-address">1612 Park Place Avenue, Fort Worth, TX</div>
+          <div class="event-badges">
+            <span class="badge badge-limited" id="rem-dallas-may19">⚡ 125 spaces remaining</span>
+          </div>
+          <div class="event-times">
+            <span class="time-chip" onclick="preselectSlot('dallas','may19','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may19','6pm')">6–8pm</span>
+          </div>
+        </div>
         <div class="city-cta">
-          <button class="btn-city" onclick="preselectCity('dallas')">Select a Dallas Session →</button>
+          <button class="btn-city" onclick="preselectCity('dallas')">Select a Dallas / Ft Worth Session →</button>
         </div>
       </div>
 
@@ -617,16 +639,17 @@ const CITY_DATES = {
     { key:'apr27', label:'Sunday, April 27',   venue:'GhostLine Kitchens', address:'3400 Comsouth Dr · Austin, TX 78744',     spacesRemaining:  60, limited: true,  familyFriendly: false }
   ],
   'houston':     [
-    { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: false },
+    { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: true },
     { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',            spacesRemaining:  80, limited: false, familyFriendly: true }
   ],
   'san-antonio': [
-    { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: false },
+    { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: true },
     { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'215 Coca-Cola Pl, San Antonio, TX 78220',                spacesRemaining: 100, limited: false, familyFriendly: true }
   ],
   'dallas':      [
-    { key:'may17', label:'Sunday, May 17',  venue:'Venue to be announced',   address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
-    { key:'may18', label:'Monday, May 18',  venue:'Venue to be announced',   address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false }
+    { key:'may17', label:'Sunday, May 17',    venue:'Main Event Grand Prairie', address:'3106 State Hwy 161, Grand Prairie, TX 75052', spacesRemaining: 0, limited: false, familyFriendly: true },
+    { key:'may18', label:'Monday, May 18',    venue:'Krimson Park',             address:'208 N Market St # 300, Dallas, TX 75202',     spacesRemaining: 400, limited: false, familyFriendly: false },
+    { key:'may19', label:'Tuesday, May 19',   venue:'WED Spaces',               address:'1612 Park Place Avenue, Fort Worth, TX',      spacesRemaining: 125, limited: false, familyFriendly: false }
   ]
 };
 
@@ -643,10 +666,12 @@ const SLOT_LABELS = {
   'san-antonio-may13-6pm': "San Antonio · Wed May 13 · 6–8pm · AR's Entertainment Hub",
   'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm · The Stone Manor',
   'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm · The Stone Manor',
-  'dallas-may17-4pm':      'Dallas · Sun May 17 · 4–6pm',
-  'dallas-may17-6pm':      'Dallas · Sun May 17 · 6–8pm',
-  'dallas-may18-4pm':      'Dallas · Mon May 18 · 4–6pm',
-  'dallas-may18-6pm':      'Dallas · Mon May 18 · 6–8pm'
+  'dallas-may17-4pm':      'Dallas/FW · Sun May 17 · 4–6pm · Main Event Grand Prairie',
+  'dallas-may17-6pm':      'Dallas/FW · Sun May 17 · 6–8pm · Main Event Grand Prairie',
+  'dallas-may18-4pm':      'Dallas/FW · Mon May 18 · 4–6pm · Krimson Park',
+  'dallas-may18-6pm':      'Dallas/FW · Mon May 18 · 6–8pm · Krimson Park',
+  'dallas-may19-4pm':      'Dallas/FW · Tue May 19 · 4–6pm · WED Spaces',
+  'dallas-may19-6pm':      'Dallas/FW · Tue May 19 · 6–8pm · WED Spaces'
 };
 
 // ISO dates, city, address and familyFriendly for each slot
@@ -655,18 +680,20 @@ const SLOT_META = {
   'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: true },
   'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '4:00-6:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '6:00-8:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
-  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
-  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
+  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
+  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
   'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: 'Houston, TX',             familyFriendly: true },
   'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: 'Houston, TX',             familyFriendly: true },
-  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: false },
-  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: false },
+  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
+  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
   'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
   'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
-  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
-  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
-  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
-  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '4:00-6:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
+  'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '6:00-8:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
+  'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Krimson Park',             time: '4:00-6:00pm CT', address: '208 N Market St # 300, Dallas, TX 75202',    familyFriendly: false },
+  'dallas-may18-6pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Krimson Park',             time: '6:00-8:00pm CT', address: '208 N Market St # 300, Dallas, TX 75202',    familyFriendly: false },
+  'dallas-may19-4pm':      { date: '2026-05-19', city: 'Dallas',      venue: 'WED Spaces',               time: '4:00-6:00pm CT', address: '1612 Park Place Avenue, Fort Worth, TX',     familyFriendly: false },
+  'dallas-may19-6pm':      { date: '2026-05-19', city: 'Dallas',      venue: 'WED Spaces',               time: '6:00-8:00pm CT', address: '1612 Park Place Avenue, Fort Worth, TX',     familyFriendly: false },
 };
 
 const SLOT_CAPACITY = {
@@ -675,7 +702,9 @@ const SLOT_CAPACITY = {
   'houston-may10-4pm':50,'houston-may10-6pm':50,
   'houston-may11-4pm':80,'houston-may11-6pm':80,
   'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
-  'san-antonio-may14-4pm':100,'san-antonio-may14-6pm':100
+  'san-antonio-may14-4pm':100,'san-antonio-may14-6pm':100,
+  'dallas-may18-4pm':400,'dallas-may18-6pm':400,
+  'dallas-may19-4pm':125,'dallas-may19-6pm':125
 };
 
 /* ─── STATE ──────────────────────────────────────────────────── */
