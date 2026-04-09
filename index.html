@@ -462,7 +462,11 @@
         <div class="city-card-name"><span class="city-flag">🌹</span>San Antonio</div>
         <div class="event-row">
           <div class="event-date-line">Wednesday, May 13</div>
-          <div class="event-venue">Venue to be announced</div>
+          <div class="event-venue">AR's Entertainment Hub</div>
+          <div class="event-address">4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201</div>
+          <div class="event-badges">
+            <span class="badge badge-limited" id="rem-san-antonio-may13">⚡ 80 spaces remaining</span>
+          </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
@@ -617,7 +621,7 @@ const CITY_DATES = {
     { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',            spacesRemaining:  80, limited: false, familyFriendly: true }
   ],
   'san-antonio': [
-    { key:'may13', label:'Wednesday, May 13', venue:'Venue to be announced', address:'',                                      spacesRemaining:   0, limited: false, familyFriendly: false },
+    { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: false },
     { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'215 Coca-Cola Pl, San Antonio, TX 78220',                spacesRemaining: 100, limited: false, familyFriendly: true }
   ],
   'dallas':      [
@@ -635,8 +639,8 @@ const SLOT_LABELS = {
   'houston-may10-6pm':     'Houston · Sun May 10 · 6–8pm · Flip N Fun Center',
   'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm · Mission Control Coworking Space',
   'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm · Mission Control Coworking Space',
-  'san-antonio-may13-4pm': 'San Antonio · Wed May 13 · 4–6pm',
-  'san-antonio-may13-6pm': 'San Antonio · Wed May 13 · 6–8pm',
+  'san-antonio-may13-4pm': "San Antonio · Wed May 13 · 4–6pm · AR's Entertainment Hub",
+  'san-antonio-may13-6pm': "San Antonio · Wed May 13 · 6–8pm · AR's Entertainment Hub",
   'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm · The Stone Manor',
   'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm · The Stone Manor',
   'dallas-may17-4pm':      'Dallas · Sun May 17 · 4–6pm',
@@ -655,8 +659,8 @@ const SLOT_META = {
   'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: false },
   'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: 'Houston, TX',             familyFriendly: true },
   'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: 'Houston, TX',             familyFriendly: true },
-  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
-  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: 'Venue TBA',          time: '6:00-8:00pm CT', address: '',                                    familyFriendly: false },
+  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: false },
+  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: false },
   'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
   'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: 'San Antonio, TX',                     familyFriendly: true },
   'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Venue TBA',          time: '4:00-6:00pm CT', address: '',                                    familyFriendly: false },
@@ -670,6 +674,7 @@ const SLOT_CAPACITY = {
   'austin-apr27-4pm':60,'austin-apr27-6pm':60,
   'houston-may10-4pm':50,'houston-may10-6pm':50,
   'houston-may11-4pm':80,'houston-may11-6pm':80,
+  'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
   'san-antonio-may14-4pm':100,'san-antonio-may14-6pm':100
 };
 
