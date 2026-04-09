@@ -213,8 +213,8 @@
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d0dc0455a56ea3aef16_Novatio%20Primary%20Logo%20-%20Dark.svg"
-           alt="Novatio" onerror="this.src='https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/687c2d31c0455a56ea3af021_Novatio%20Primary%20Logo%20-%20White.svg'" />
+      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872db3701f5855f4e8ae46_Novatio%20Primary%20Logo%20-%20Dark.svg"
+           alt="Novatio" />
     </a>
     <div class="nav-right">
       <button class="btn-nav" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Reserve My Spot →</button>
@@ -615,7 +615,7 @@
       <div class="footer-copy">© 2026 Novatio School · txevents.novatio.school</div>
     </div>
     <div class="footer-bottom">
-      <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/69c161be8edf46e0395d0d0b_Cognia_ACCRED-Badge-GREY-684x684%20(1).png" alt="Cognia" class="cognia-footer" />
+      <div></div>
       <div class="footer-links">
         <a href="https://novatio.school" target="_blank">novatio.school</a>
         <a href="https://novatio.school/privacy-policy" target="_blank">Privacy Policy</a>
@@ -879,6 +879,23 @@ async function handleSubmit(e) {
   const slotVal = document.getElementById('event_slot').value;
   if (!slotVal) { errEl.textContent = 'Please select an event session.'; errEl.style.display = 'block'; return; }
 
+  // Validate required fields
+  const reqFields = [
+    { id: 'first_name', label: 'First name' },
+    { id: 'last_name',  label: 'Last name' },
+    { id: 'email',      label: 'Email' },
+    { id: 'phone',      label: 'Phone number' }
+  ];
+  for (const f of reqFields) {
+    const el = document.getElementById(f.id);
+    if (!el || !el.value.trim()) {
+      errEl.textContent = `${f.label} is required.`;
+      errEl.style.display = 'block';
+      if (el) el.focus();
+      return;
+    }
+  }
+
   btn.textContent = 'Reserving…'; btn.disabled = true;
 
   const data = Object.fromEntries(new FormData(form));
@@ -911,10 +928,10 @@ async function handleSubmit(e) {
   };
 
   const supaPayload = {
-    firstname: data.first_name, lastname: data.last_name,
+    first_name: data.first_name, last_name: data.last_name,
     email: data.email, phone: data.phone,
-    num_children: data.num_children, event_slot: slotVal,
-    source: 'tx-events-lp', created_at: new Date().toISOString()
+    number_of_children: data.num_children || null, event_slot: slotVal,
+    created_at: new Date().toISOString()
   };
 
   try {
