@@ -399,7 +399,7 @@
           <div class="event-venue">Austin's</div>
           <div class="event-address">16231 IH-35, Pflugerville, TX 78660</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-austin-apr26">⚡ 150 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-austin-apr26">⚡ Spaces limited</span>
             <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
@@ -412,7 +412,7 @@
           <div class="event-venue">GhostLine Kitchens</div>
           <div class="event-address">3400 Comsouth Dr · Austin, TX 78744</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-austin-apr27">⚡ 60 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-austin-apr27">⚡ Spaces limited</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
@@ -432,7 +432,7 @@
           <div class="event-venue">Flip N' Fun Center</div>
           <div class="event-address">5379 W Richey Rd · Houston, TX 77066</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-houston-may10">⚡ 50 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-houston-may10">⚡ Spaces limited</span>
             <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
@@ -445,7 +445,7 @@
           <div class="event-venue">Mission Control Coworking Space</div>
           <div class="event-address">12121 Westheimer Rd Suite B 300, Houston, TX 77077</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-houston-may11">⚡ 80 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-houston-may11">⚡ Spaces limited</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
@@ -465,7 +465,7 @@
           <div class="event-venue">AR's Entertainment Hub</div>
           <div class="event-address">4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-san-antonio-may13">⚡ 80 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-san-antonio-may13">⚡ Spaces limited</span>
             <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
           </div>
           <div class="event-times">
@@ -478,7 +478,7 @@
           <div class="event-venue">The Stone Manor</div>
           <div class="event-address">215 Coca-Cola Pl, San Antonio, TX 78220</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-san-antonio-may14">⚡ 100 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-san-antonio-may14">⚡ Spaces limited</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
@@ -510,7 +510,7 @@
           <div class="event-venue">Krimson Park</div>
           <div class="event-address">208 N Market St # 300, Dallas, TX 75202</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-dallas-may18">⚡ 400 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-dallas-may18">⚡ Spaces limited</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('dallas','may18','4pm')">4–6pm</span>
@@ -522,7 +522,7 @@
           <div class="event-venue">WED Spaces</div>
           <div class="event-address">1612 Park Place Avenue, Fort Worth, TX</div>
           <div class="event-badges">
-            <span class="badge badge-limited" id="rem-dallas-may19">⚡ 125 spaces remaining</span>
+            <span class="badge badge-limited" id="rem-dallas-may19">⚡ Spaces limited</span>
           </div>
           <div class="event-times">
             <span class="time-chip" onclick="preselectSlot('dallas','may19','4pm')">4–6pm</span>
@@ -731,8 +731,10 @@ function selectCity(city) {
     const rem4 = slotRemaining[slotKey4];
     const rem6 = slotRemaining[slotKey6];
     const displayRem = (rem4 !== undefined && rem6 !== undefined) ? Math.min(rem4, rem6) : (rem4 ?? rem6);
+    const displayCap = (SLOT_CAPACITY[slotKey4] && SLOT_CAPACITY[slotKey6]) ? Math.min(SLOT_CAPACITY[slotKey4], SLOT_CAPACITY[slotKey6]) : (SLOT_CAPACITY[slotKey4] || SLOT_CAPACITY[slotKey6] || 1);
+    const spaceLabel = (displayRem !== undefined && displayRem > displayCap * 0.5) ? 'Spaces limited' : `${displayRem} spaces remaining`;
     const spaceBadge = displayRem !== undefined
-      ? `<span class="badge badge-limited" style="margin-top:4px;display:inline-flex">⚡ ${displayRem} spaces remaining</span>`
+      ? `<span class="badge badge-limited" style="margin-top:4px;display:inline-flex">⚡ ${spaceLabel}</span>`
       : '';
     const familyBadge = d.familyFriendly ? `<span class="badge badge-family" style="margin-top:4px;display:inline-flex">👨‍👩‍👧 Family friendly</span>` : '';
     btn.innerHTML = `<span class="sb-city">${d.label}</span><span class="sb-venue">${d.venue}</span>${spaceBadge}${familyBadge}`;
@@ -853,7 +855,10 @@ async function loadCounts() {
       const r4 = slotRemaining[day + '-4pm'];
       const r6 = slotRemaining[day + '-6pm'];
       const rem = (r4 !== undefined && r6 !== undefined) ? Math.min(r4, r6) : (r4 ?? r6);
-      if (rem !== undefined) el.textContent = `⚡ ${rem} spaces remaining`;
+      if (rem !== undefined) {
+        const cap = SLOT_CAPACITY[day + '-4pm'] || SLOT_CAPACITY[day + '-6pm'] || 1;
+        el.textContent = rem > cap * 0.5 ? '⚡ Spaces limited' : `⚡ ${rem} spaces remaining`;
+      }
     });
   } catch(e) {}
 }
