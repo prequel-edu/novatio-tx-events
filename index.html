@@ -945,11 +945,12 @@ async function handleSubmit(e) {
     );
     if (!hsRes.ok) throw new Error('HubSpot submission failed');
 
-    // Supabase is best-effort backup — don't block on failure
+    // Supabase is best-effort backup — keepalive ensures request survives page navigation
     fetch(SUPA_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal' },
-      body: JSON.stringify(supaPayload)
+      body: JSON.stringify(supaPayload),
+      keepalive: true
     }).catch(() => {});
 
     const utmParams = new URLSearchParams();
