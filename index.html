@@ -155,6 +155,30 @@
     .btn-city { display: block; width: 100%; padding: 11px; background: var(--orange); color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 800; border: none; border-radius: 10px; cursor: pointer; transition: opacity .2s; text-align: center; }
     .btn-city:hover { opacity: .88; }
 
+    /* ─── COMPACT EVENTS ─────────────────────────────────────────── */
+    .events-compact { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(34,38,37,.08); border: 1.5px solid var(--border); }
+    .events-city-tabs { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .ec-tab { background: var(--warm); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 12px; text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .15s; display: flex; flex-direction: column; align-items: center; gap: 3px; width: 100%; }
+    .ec-tab:hover { border-color: var(--orange); background: #fff; }
+    .ec-tab.active { border-color: var(--orange); background: rgba(252,75,12,.05); }
+    .ec-flag { font-size: 18px; }
+    .ec-city { font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 800; color: var(--dark); }
+    .ec-dates-label { font-size: 11px; color: var(--muted); }
+    .ec-panel { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; }
+    .ec-panel.hidden { display: none; }
+    .ec-date-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .ec-date-row:last-of-type { border-bottom: none; }
+    .ec-date-info { flex: 1; min-width: 160px; }
+    .ec-date-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .ec-venue-name { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 1px; }
+    .ec-date-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+    .ec-times-row { display: flex; gap: 6px; flex-shrink: 0; }
+    .ec-register { margin-top: 14px; }
+    @media (max-width: 680px) {
+      .events-city-tabs { grid-template-columns: 1fr 1fr; }
+      .ec-date-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
     /* ─── PROGRAM BRIEF ───────────────────────────────────────────── */
     .program-section { background: var(--cream); padding: 72px 0; }
     .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
@@ -246,13 +270,13 @@
         <div class="hero-eyebrow">🤠 Texas · TEFA Approved · Grades 4–8</div>
         <div class="hero-banner">
           <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" alt="" class="banner-diamond" />
-          <span>Meet Novatio in Texas.</span>
+          <span>School Built for the Real World</span>
           <img src="https://cdn.prod.website-files.com/687c139d7d1362f24d06d2ba/68872e96c4ea4b4455b8f756_Diamond.svg" alt="" class="banner-diamond" />
         </div>
 
-        <h1 class="hero-h1">Meet us in Texas. See why families are switching.</h1>
+        <h1 class="hero-h1">See why families in Texas are switching.</h1>
         <p class="hero-sub">
-          Novatio is hosting free in-person events across Texas this spring. Meet our team, ask your questions, and get a real feel for how we're different. <strong>Tuition is fully covered by TEFA: $0 out of pocket, with ~$2,000 left over.</strong>
+          We're hosting free events across Texas this spring. Come meet our team, ask your questions, and see how Novatio works for grades 4 through 8. Tuition is fully covered by TEFA. $0 out of pocket.
         </p>
 
         <div class="hero-tags">
@@ -353,9 +377,15 @@
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
               </div>
-              <div class="fg" id="children-field-group">
-                <label for="num_children">How many children will be attending?</label>
-                <input type="number" id="num_children" name="num_children" placeholder="1" min="1" max="10" />
+              <div class="frow">
+                <div class="fg">
+                  <label for="num_adults">How many adults are attending?</label>
+                  <input type="number" id="num_adults" name="num_adults" placeholder="1" min="1" max="20" />
+                </div>
+                <div class="fg">
+                  <label for="num_children">How many children are attending?</label>
+                  <input type="number" id="num_children" name="num_children" placeholder="0" min="0" max="10" />
+                </div>
               </div>
 
               <input type="hidden" id="event_slot" name="event_slot" />
@@ -393,162 +423,6 @@
     <div class="titem">📍 4 Texas Cities</div>
   </div>
 </div>
-
-<!-- EVENTS GRID -->
-<section class="events-section" id="events">
-  <div class="container">
-    <div class="section-label">Spring 2026 Events</div>
-    <h2 class="section-h2">Coming to a city near you.</h2>
-    <p class="section-sub">Each event runs 4pm–8pm. Choose the 4–6pm or 6–8pm session. Free to attend. Just reserve your spot.</p>
-
-    <div class="city-cards">
-
-      <!-- Austin -->
-      <div class="city-card">
-        <div class="city-card-name"><span class="city-flag">🤠</span>Austin</div>
-        <div class="event-row">
-          <div class="event-date-line">Sunday, April 26</div>
-          <div class="event-venue">Austin's</div>
-          <div class="event-address">16231 IH-35, Pflugerville, TX 78660</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-austin-apr26">⚡ Spaces limited</span>
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('austin','apr26','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('austin','apr26','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="event-row">
-          <div class="event-date-line">Monday, April 27</div>
-          <div class="event-venue">GhostLine Kitchens</div>
-          <div class="event-address">3400 Comsouth Dr · Austin, TX 78744</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-austin-apr27">⚡ Spaces limited</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('austin','apr27','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="city-cta">
-          <button class="btn-city" onclick="preselectCity('austin')">Select an Austin Session →</button>
-        </div>
-      </div>
-
-      <!-- Houston -->
-      <div class="city-card">
-        <div class="city-card-name"><span class="city-flag">🚀</span>Houston</div>
-        <div class="event-row">
-          <div class="event-date-line">Sunday, May 10</div>
-          <div class="event-venue">Flip N' Fun Center</div>
-          <div class="event-address">5379 W Richey Rd · Houston, TX 77066</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-houston-may10">⚡ Spaces limited</span>
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="event-row">
-          <div class="event-date-line">Monday, May 11</div>
-          <div class="event-venue">Mission Control Coworking Space</div>
-          <div class="event-address">12121 Westheimer Rd Suite B 300, Houston, TX 77077</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-houston-may11">⚡ Spaces limited</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('houston','may11','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="city-cta">
-          <button class="btn-city" onclick="preselectCity('houston')">Select a Houston Session →</button>
-        </div>
-      </div>
-
-      <!-- San Antonio -->
-      <div class="city-card">
-        <div class="city-card-name"><span class="city-flag">🌹</span>San Antonio</div>
-        <div class="event-row">
-          <div class="event-date-line">Wednesday, May 13</div>
-          <div class="event-venue">AR's Entertainment Hub</div>
-          <div class="event-address">4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-san-antonio-may13">⚡ Spaces limited</span>
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="event-row">
-          <div class="event-date-line">Thursday, May 14</div>
-          <div class="event-venue">The Stone Manor</div>
-          <div class="event-address">215 Coca-Cola Pl, San Antonio, TX 78220</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-san-antonio-may14">⚡ Spaces limited</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="city-cta">
-          <button class="btn-city" onclick="preselectCity('san-antonio')">Select a San Antonio Session →</button>
-        </div>
-      </div>
-
-      <!-- Dallas / Ft Worth -->
-      <div class="city-card">
-        <div class="city-card-name"><span class="city-flag">⭐</span>Dallas / Ft Worth</div>
-        <div class="event-row">
-          <div class="event-date-line">Sunday, May 17</div>
-          <div class="event-venue">Main Event Grand Prairie</div>
-          <div class="event-address">3106 State Hwy 161, Grand Prairie, TX 75052</div>
-          <div class="event-badges">
-            <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('dallas','may17','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('dallas','may17','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="event-row">
-          <div class="event-date-line">Monday, May 18</div>
-          <div class="event-venue">Krimson Park</div>
-          <div class="event-address">208 N Market St # 300, Dallas, TX 75202</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-dallas-may18">⚡ Spaces limited</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('dallas','may18','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('dallas','may18','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="event-row">
-          <div class="event-date-line">Tuesday, May 19</div>
-          <div class="event-venue">WED Spaces</div>
-          <div class="event-address">1612 Park Place Avenue, Fort Worth, TX</div>
-          <div class="event-badges">
-            <span class="badge badge-limited" id="rem-dallas-may19">⚡ Spaces limited</span>
-          </div>
-          <div class="event-times">
-            <span class="time-chip" onclick="preselectSlot('dallas','may19','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('dallas','may19','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="city-cta">
-          <button class="btn-city" onclick="preselectCity('dallas')">Select a Dallas / Ft Worth Session →</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- PROGRAM BRIEF -->
 <section class="program-section">
@@ -602,6 +476,188 @@
             <h4>Social &amp; Collaborative</h4>
             <p>Students work on group projects, build friendships, and connect with peers, all within the virtual school environment.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS GRID -->
+<section class="events-section" id="events">
+  <div class="container">
+    <div class="section-label">Spring 2026 Events</div>
+    <h2 class="section-h2">Coming to a city near you.</h2>
+    <p class="section-sub">Free to attend. Select your city to see dates and times.</p>
+
+    <div class="events-compact">
+      <div class="events-city-tabs">
+        <button class="ec-tab" id="ect-austin" onclick="toggleEcCity('austin')">
+          <span class="ec-flag">🤠</span>
+          <span class="ec-city">Austin</span>
+          <span class="ec-dates-label">Apr 26–27</span>
+        </button>
+        <button class="ec-tab" id="ect-houston" onclick="toggleEcCity('houston')">
+          <span class="ec-flag">🚀</span>
+          <span class="ec-city">Houston</span>
+          <span class="ec-dates-label">May 10–11</span>
+        </button>
+        <button class="ec-tab" id="ect-san-antonio" onclick="toggleEcCity('san-antonio')">
+          <span class="ec-flag">🌹</span>
+          <span class="ec-city">San Antonio</span>
+          <span class="ec-dates-label">May 13–14</span>
+        </button>
+        <button class="ec-tab" id="ect-dallas" onclick="toggleEcCity('dallas')">
+          <span class="ec-flag">⭐</span>
+          <span class="ec-city">Dallas / Ft Worth</span>
+          <span class="ec-dates-label">May 17–19</span>
+        </button>
+      </div>
+
+      <!-- Austin panel -->
+      <div class="ec-panel hidden" id="ecp-austin">
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Sunday, April 26</div>
+            <div class="ec-venue-name">Austin's · 16231 IH-35, Pflugerville</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-austin-apr26">⚡ Spaces limited</span>
+              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('austin','apr26','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('austin','apr26','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Monday, April 27</div>
+            <div class="ec-venue-name">GhostLine Kitchens · 3400 Comsouth Dr, Austin</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-austin-apr27">⚡ Spaces limited</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('austin','apr27','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('austin','apr27','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-register">
+          <button class="btn-city" onclick="preselectCity('austin')">Register for Austin →</button>
+        </div>
+      </div>
+
+      <!-- Houston panel -->
+      <div class="ec-panel hidden" id="ecp-houston">
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Sunday, May 10</div>
+            <div class="ec-venue-name">Flip N' Fun Center · 5379 W Richey Rd, Houston</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-houston-may10">⚡ Spaces limited</span>
+              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Monday, May 11</div>
+            <div class="ec-venue-name">Mission Control Coworking · 12121 Westheimer Rd, Houston</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-houston-may11">⚡ Spaces limited</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('houston','may11','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-register">
+          <button class="btn-city" onclick="preselectCity('houston')">Register for Houston →</button>
+        </div>
+      </div>
+
+      <!-- San Antonio panel -->
+      <div class="ec-panel hidden" id="ecp-san-antonio">
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Wednesday, May 13</div>
+            <div class="ec-venue-name">AR's Entertainment Hub · 4522 Fredericksburg Rd, San Antonio</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-san-antonio-may13">⚡ Spaces limited</span>
+              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Thursday, May 14</div>
+            <div class="ec-venue-name">The Stone Manor · 215 Coca-Cola Pl, San Antonio</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-san-antonio-may14">⚡ Spaces limited</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-register">
+          <button class="btn-city" onclick="preselectCity('san-antonio')">Register for San Antonio →</button>
+        </div>
+      </div>
+
+      <!-- Dallas panel -->
+      <div class="ec-panel hidden" id="ecp-dallas">
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Sunday, May 17</div>
+            <div class="ec-venue-name">Main Event Grand Prairie · 3106 State Hwy 161, Grand Prairie</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('dallas','may17','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may17','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Monday, May 18</div>
+            <div class="ec-venue-name">Krimson Park · 208 N Market St, Dallas</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-dallas-may18">⚡ Spaces limited</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('dallas','may18','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may18','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-date-row">
+          <div class="ec-date-info">
+            <div class="ec-date-name">Tuesday, May 19</div>
+            <div class="ec-venue-name">WED Spaces · 1612 Park Place Ave, Fort Worth</div>
+            <div class="ec-date-badges">
+              <span class="badge badge-limited" id="ecrem-dallas-may19">⚡ Spaces limited</span>
+            </div>
+          </div>
+          <div class="ec-times-row">
+            <span class="time-chip" onclick="preselectSlot('dallas','may19','4pm')">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('dallas','may19','6pm')">6–8pm</span>
+          </div>
+        </div>
+        <div class="ec-register">
+          <button class="btn-city" onclick="preselectCity('dallas')">Register for Dallas / Ft Worth →</button>
         </div>
       </div>
     </div>
@@ -777,16 +833,6 @@ function selectTime(time) {
   hide('step-time');
   document.getElementById('contact-fields').classList.add('visible');
 
-  const childrenGroup = document.getElementById('children-field-group');
-  const numChildren   = document.getElementById('num_children');
-  if (meta.familyFriendly) {
-    childrenGroup.style.display = '';
-    numChildren.required = true;
-  } else {
-    childrenGroup.style.display = 'none';
-    numChildren.required = false;
-    numChildren.value = '';
-  }
 }
 
 function goBack(to) {
@@ -801,6 +847,20 @@ function resetSlot() {
   document.getElementById('contact-fields').classList.remove('visible');
   document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
   hide('step-date'); hide('step-time'); show('step-city');
+}
+
+/* ─── COMPACT EVENT CARD ACCORDION ──────────────────────────── */
+function toggleEcCity(city) {
+  const cities = ['austin','houston','san-antonio','dallas'];
+  const isOpen = !document.getElementById('ecp-' + city).classList.contains('hidden');
+  cities.forEach(c => {
+    document.getElementById('ecp-' + c).classList.add('hidden');
+    document.getElementById('ect-' + c).classList.remove('active');
+  });
+  if (!isOpen) {
+    document.getElementById('ecp-' + city).classList.remove('hidden');
+    document.getElementById('ect-' + city).classList.add('active');
+  }
 }
 
 /* ─── PRESELECT FROM EVENT GRID ──────────────────────────────── */
@@ -845,7 +905,7 @@ function preselectSlot(city, date, time) {
 /* ─── LIVE SPACE COUNTS ──────────────────────────────────────── */
 async function loadCounts() {
   try {
-    const res = await fetch(`${SUPA_URL}?select=event_slot,number_of_children`, {
+    const res = await fetch(`${SUPA_URL}?select=event_slot,number_of_adults,number_of_children`, {
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
     });
     if (!res.ok) return;
@@ -853,8 +913,9 @@ async function loadCounts() {
     const counts = {};
     rows.forEach(r => {
       if (!r.event_slot) return;
-      const kids = parseInt(r.number_of_children, 10) || 0;
-      counts[r.event_slot] = (counts[r.event_slot] || 0) + 1 + kids;
+      const adults = parseInt(r.number_of_adults, 10) || 1;
+      const kids   = parseInt(r.number_of_children, 10) || 0;
+      counts[r.event_slot] = (counts[r.event_slot] || 0) + adults + kids;
     });
     Object.keys(SLOT_CAPACITY).forEach(k => {
       slotRemaining[k] = Math.max(0, SLOT_CAPACITY[k] - (counts[k] || 0));
@@ -869,7 +930,10 @@ async function loadCounts() {
       const rem = (r4 !== undefined && r6 !== undefined) ? Math.min(r4, r6) : (r4 ?? r6);
       if (rem !== undefined) {
         const cap = SLOT_CAPACITY[day + '-4pm'] || SLOT_CAPACITY[day + '-6pm'] || 1;
-        el.textContent = rem > cap * 0.5 ? '⚡ Spaces limited' : `⚡ ${rem} spaces remaining`;
+        const txt = rem > cap * 0.5 ? '⚡ Spaces limited' : `⚡ ${rem} spaces remaining`;
+        el.textContent = txt;
+        const ecEl = document.getElementById('ecrem-' + day);
+        if (ecEl) ecEl.textContent = txt;
       }
     });
   } catch(e) {}
@@ -926,6 +990,7 @@ async function handleSubmit(e) {
     { name: 'lastname',                     value: data.last_name    || '' },
     { name: 'email',                        value: data.email        || '' },
     { name: 'phone',                        value: data.phone        || '' },
+    { name: 'number_of_adults_attending',   value: data.num_adults   || '' },
     { name: 'number_of_children_attending', value: data.num_children || '' },
     { name: 'event_slot',                   value: slotVal                 },
     { name: 'event_date',                   value: document.getElementById('event_date').value ? String(new Date(document.getElementById('event_date').value).getTime()) : '' },
@@ -951,7 +1016,7 @@ async function handleSubmit(e) {
   const supaPayload = {
     first_name: data.first_name, last_name: data.last_name,
     email: data.email, phone: data.phone,
-    number_of_children: data.num_children || null, event_slot: slotVal,
+    number_of_adults: data.num_adults || null, number_of_children: data.num_children || null, event_slot: slotVal,
     created_at: new Date().toISOString()
   };
 
