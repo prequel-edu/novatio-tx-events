@@ -87,6 +87,8 @@
     /* Slot picker */
     .step-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
     .slot-step { margin-bottom: 16px; }
+    .slot-step.needs-attention { outline: 2.5px solid #DC2626; border-radius: 12px; padding: 10px; animation: pulse-border .4s ease 2; }
+    @keyframes pulse-border { 0%,100% { outline-color: #DC2626; } 50% { outline-color: #FF6B6B; } }
     .slot-step.hidden { display: none; }
     .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .slot-btn { width: 100%; background: var(--warm); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 12px; text-align: left; cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color .15s, background .15s; }
@@ -855,6 +857,7 @@ function resetSlot() {
   document.getElementById('contact-fields').classList.remove('visible');
   document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
   hide('step-date'); hide('step-time'); show('step-city');
+  document.getElementById('step-city').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 /* ─── COMPACT EVENT CARD ACCORDION ──────────────────────────── */
@@ -984,7 +987,16 @@ async function handleSubmit(e) {
 
   // Validate slot selected
   const slotVal = document.getElementById('event_slot').value;
-  if (!slotVal) { errEl.textContent = 'Please select an event session.'; errEl.style.display = 'block'; return; }
+  if (!slotVal) {
+    const activeStep = ['step-time','step-date','step-city'].find(id => !document.getElementById(id).classList.contains('hidden'));
+    const stepEl = document.getElementById(activeStep || 'step-city');
+    stepEl.classList.add('needs-attention');
+    stepEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => stepEl.classList.remove('needs-attention'), 2500);
+    errEl.textContent = 'Please complete your session selection above before submitting.';
+    errEl.style.display = 'block';
+    return;
+  }
 
   // Validate all fields — show every error at once
   let hasError = false;
@@ -1059,11 +1071,15 @@ async function handleSubmit(e) {
     created_at: new Date().toISOString()
   };
 
+  const controller = new AbortController();
+  const reqTimeout = setTimeout(() => controller.abort(), 15000);
+
   try {
     const hsRes = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL}/${HS_FORM}`,
-      { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(hsPayload) }
+      { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(hsPayload), signal: controller.signal }
     );
+    clearTimeout(reqTimeout);
     if (!hsRes.ok) throw new Error('HubSpot submission failed');
 
     // Supabase is best-effort backup — keepalive ensures request survives page navigation
@@ -1083,13 +1099,25 @@ async function handleSubmit(e) {
     window.location.href = '/confirmed/?' + utmParams.toString();
 
   } catch(err) {
+    clearTimeout(reqTimeout);
     console.error(err);
-    errEl.textContent = 'Something went wrong. Please try again or email us at hello@novatio.school.';
+    errEl.textContent = err.name === 'AbortError'
+      ? 'This is taking longer than expected. Please check your connection and try again.'
+      : 'Something went wrong. Please try again or email us at hello@novatio.school.';
     errEl.style.display = 'block';
+    errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     btn.textContent = 'Reserve My Spot →';
     btn.disabled = false;
   }
 }
+
+// Re-enable submit if page is restored from back-forward cache
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    const btn = document.getElementById('submit-btn');
+    if (btn) { btn.disabled = false; btn.textContent = 'Reserve My Spot →'; }
+  }
+});
 
 loadCounts();
 </script>
