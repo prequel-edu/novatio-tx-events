@@ -121,6 +121,9 @@
     .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
     .form-trust { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
     .form-error { display: none; background: #FEE2E2; border: 1px solid #FECACA; color: #991B1B; font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+    .field-error { display: none; color: #DC2626; font-size: 11px; font-weight: 500; margin-top: 4px; }
+    .fg input.invalid { border-color: #DC2626; background: #FFF5F5; }
+    .fg input.invalid:focus { border-color: #DC2626; box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
 
     /* ─── TRUST BAR ───────────────────────────────────────────────── */
     .trust-bar { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -362,28 +365,33 @@
               <div class="frow">
                 <div class="fg">
                   <label for="first_name">First Name <span style="color:red">*</span></label>
-                  <input type="text" id="first_name" name="first_name" placeholder="Jane" required />
+                  <input type="text" id="first_name" name="first_name" placeholder="Jane" required oninput="clearFieldError('first_name')" />
+                  <span class="field-error" id="err_first_name"></span>
                 </div>
                 <div class="fg">
                   <label for="last_name">Last Name <span style="color:red">*</span></label>
-                  <input type="text" id="last_name" name="last_name" placeholder="Smith" required />
+                  <input type="text" id="last_name" name="last_name" placeholder="Smith" required oninput="clearFieldError('last_name')" />
+                  <span class="field-error" id="err_last_name"></span>
                 </div>
               </div>
               <div class="fg">
                 <label for="email">Email Address <span style="color:red">*</span></label>
-                <input type="email" id="email" name="email" placeholder="jane@email.com" required />
+                <input type="email" id="email" name="email" placeholder="jane@email.com" required oninput="clearFieldError('email')" />
+                <span class="field-error" id="err_email"></span>
               </div>
               <div class="fg">
                 <label for="phone">Phone Number <span style="color:red">*</span></label>
-                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
+                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required oninput="clearFieldError('phone')" />
+                <span class="field-error" id="err_phone"></span>
               </div>
               <div class="frow">
                 <div class="fg">
                   <label for="num_adults">Adults attending <span style="color:red">*</span></label>
-                  <input type="number" id="num_adults" name="num_adults" placeholder="1" min="1" max="20" required />
+                  <input type="number" id="num_adults" name="num_adults" placeholder="1" min="1" max="20" required oninput="clearFieldError('num_adults')" />
+                  <span class="field-error" id="err_num_adults"></span>
                 </div>
                 <div class="fg">
-                  <label for="num_children">How many children are attending?</label>
+                  <label for="num_children">Children attending</label>
                   <input type="number" id="num_children" name="num_children" placeholder="0" min="0" max="10" />
                 </div>
               </div>
@@ -953,6 +961,20 @@ const HS_FORM   = '4af6314b-d1c1-442c-b689-bede8c399dc8';
 const SUPA_URL  = 'https://muiutupxkfifrfbzyaom.supabase.co/rest/v1/tx_event_registrations';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11aXV0dXB4a2ZpZnJmYnp5YW9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjQ4OTksImV4cCI6MjA5MDU0MDg5OX0.BIfJ4pEfdTaeYSc_b0pKD_zGpZFXVh2wYnjdlpXOTOc';
 
+function setFieldError(id, msg) {
+  const input = document.getElementById(id);
+  const span  = document.getElementById('err_' + id);
+  if (msg) {
+    if (input) input.classList.add('invalid');
+    if (span)  { span.textContent = msg; span.style.display = 'block'; }
+  } else {
+    if (input) input.classList.remove('invalid');
+    if (span)  { span.textContent = ''; span.style.display = 'none'; }
+  }
+}
+
+function clearFieldError(id) { setFieldError(id, ''); }
+
 async function handleSubmit(e) {
   e.preventDefault();
   const form  = e.target;
@@ -964,29 +986,37 @@ async function handleSubmit(e) {
   const slotVal = document.getElementById('event_slot').value;
   if (!slotVal) { errEl.textContent = 'Please select an event session.'; errEl.style.display = 'block'; return; }
 
-  // Validate required fields
-  const reqFields = [
-    { id: 'first_name', label: 'First name' },
-    { id: 'last_name',  label: 'Last name' },
-    { id: 'email',      label: 'Email' },
-    { id: 'phone',      label: 'Phone number' }
-  ];
-  for (const f of reqFields) {
-    const el = document.getElementById(f.id);
-    if (!el || !el.value.trim()) {
-      errEl.textContent = `${f.label} is required.`;
-      errEl.style.display = 'block';
-      if (el) el.focus();
-      return;
-    }
+  // Validate all fields — show every error at once
+  let hasError = false;
+
+  const firstName = document.getElementById('first_name').value.trim();
+  if (!firstName) { setFieldError('first_name', 'First name is required.'); hasError = true; }
+
+  const lastName = document.getElementById('last_name').value.trim();
+  if (!lastName) { setFieldError('last_name', 'Last name is required.'); hasError = true; }
+
+  const emailVal = document.getElementById('email').value.trim();
+  if (!emailVal) {
+    setFieldError('email', 'Email address is required.'); hasError = true;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+    setFieldError('email', 'Please enter a valid email address (e.g. jane@gmail.com).'); hasError = true;
   }
 
-  // Validate adults >= 1
+  const phoneDigits = document.getElementById('phone').value.replace(/\D/g, '');
+  if (!phoneDigits) {
+    setFieldError('phone', 'Phone number is required.'); hasError = true;
+  } else if (phoneDigits.length < 10) {
+    setFieldError('phone', 'Please enter a valid 10-digit phone number.'); hasError = true;
+  }
+
   const adultsVal = parseInt(document.getElementById('num_adults').value, 10);
   if (isNaN(adultsVal) || adultsVal < 1) {
-    errEl.textContent = 'Please enter the number of adults attending (minimum 1).';
-    errEl.style.display = 'block';
-    document.getElementById('num_adults').focus();
+    setFieldError('num_adults', 'Please enter at least 1 adult attending.'); hasError = true;
+  }
+
+  if (hasError) {
+    const firstInvalid = document.querySelector('.fg input.invalid');
+    if (firstInvalid) firstInvalid.focus();
     return;
   }
 
