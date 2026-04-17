@@ -361,26 +361,26 @@
 
               <div class="frow">
                 <div class="fg">
-                  <label for="first_name">First Name</label>
+                  <label for="first_name">First Name <span style="color:red">*</span></label>
                   <input type="text" id="first_name" name="first_name" placeholder="Jane" required />
                 </div>
                 <div class="fg">
-                  <label for="last_name">Last Name</label>
+                  <label for="last_name">Last Name <span style="color:red">*</span></label>
                   <input type="text" id="last_name" name="last_name" placeholder="Smith" required />
                 </div>
               </div>
               <div class="fg">
-                <label for="email">Email Address</label>
+                <label for="email">Email Address <span style="color:red">*</span></label>
                 <input type="email" id="email" name="email" placeholder="jane@email.com" required />
               </div>
               <div class="fg">
-                <label for="phone">Phone Number</label>
+                <label for="phone">Phone Number <span style="color:red">*</span></label>
                 <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
               </div>
               <div class="frow">
                 <div class="fg">
-                  <label for="num_adults">How many adults are attending?</label>
-                  <input type="number" id="num_adults" name="num_adults" placeholder="1" min="1" max="20" />
+                  <label for="num_adults">Adults attending <span style="color:red">*</span></label>
+                  <input type="number" id="num_adults" name="num_adults" placeholder="1" min="1" max="20" required />
                 </div>
                 <div class="fg">
                   <label for="num_children">How many children are attending?</label>
@@ -742,8 +742,8 @@ const SLOT_LABELS = {
 
 // ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '4:00-6:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: true },
-  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: 'Address TBD · Austin, TX',            familyFriendly: true },
+  'austin-apr26-4pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '4:00-6:00pm CT', address: '16231 IH-35, Pflugerville, TX 78660', familyFriendly: true },
+  'austin-apr26-6pm':      { date: '2026-04-26', city: 'Austin',      venue: "Austin's",          time: '6:00-8:00pm CT', address: '16231 IH-35, Pflugerville, TX 78660', familyFriendly: true },
   'austin-apr27-4pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '4:00-6:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'austin-apr27-6pm':      { date: '2026-04-27', city: 'Austin',      venue: 'GhostLine Kitchens', time: '6:00-8:00pm CT', address: '3400 Comsouth Dr, Austin, TX 78744',  familyFriendly: false },
   'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
@@ -979,6 +979,15 @@ async function handleSubmit(e) {
       if (el) el.focus();
       return;
     }
+  }
+
+  // Validate adults >= 1
+  const adultsVal = parseInt(document.getElementById('num_adults').value, 10);
+  if (isNaN(adultsVal) || adultsVal < 1) {
+    errEl.textContent = 'Please enter the number of adults attending (minimum 1).';
+    errEl.style.display = 'block';
+    document.getElementById('num_adults').focus();
+    return;
   }
 
   btn.textContent = 'Reserving…'; btn.disabled = true;
