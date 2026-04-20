@@ -219,7 +219,7 @@ const EVENTS = {
     calEl.setAttribute('startTime', startTimeFormatted);
     calEl.setAttribute('endTime', endTimeFormatted);
     calEl.setAttribute('timeZone', 'America/Chicago');
-    calEl.setAttribute('location', isTBA ? `${ev.city}, TX` : `${ev.venue}, ${ev.city}, TX`);
+    calEl.setAttribute('location', isTBA ? `${ev.city}, TX` : `${ev.venue}, ${ev.address}`);
     calEl.setAttribute('description', `You're registered for the Novatio in-person event in ${ev.city}![br][br]📍 ${ev.venue}[br]${ev.address}[br][br]Novatio is a private, virtual, AI-driven school for grades 4–8. Come meet our team, ask questions about TEFA funding, and see how we're different.[br][br]No commitment required.[br][br]Learn more: https://txevents.novatio.school`);
     calEl.setAttribute('options', "'Google','Apple','Outlook.com','iCal'");
     calEl.setAttribute('buttonStyle', 'round');
