@@ -98,6 +98,9 @@
     .slot-btn .sb-date { font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
     .slot-btn .sb-venue { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
     .slot-btn .sb-time { font-size: 12px; font-weight: 600; color: var(--dark); display: block; margin-top: 2px; }
+    .slot-btn.sold-out { opacity: .5; cursor: not-allowed; border-color: var(--border) !important; background: var(--warm) !important; }
+    .slot-btn.sold-out:hover { border-color: var(--border); background: var(--warm); }
+    .sb-sold-out { font-size: 11px; color: #c00; font-weight: 700; display: block; margin-top: 3px; }
     .date-grid { display: flex; flex-direction: column; gap: 8px; }
     .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .step-back { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; padding: 0 0 8px 0; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 4px; }
@@ -827,6 +830,28 @@ function selectDate(dateKey, btn) {
   document.querySelectorAll('#date-options .slot-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   hide('step-date'); show('step-time');
+  updateTimeButtons();
+}
+
+function updateTimeButtons() {
+  if (!selCity || !selDate) return;
+  const timeBtns = document.querySelectorAll('#step-time .slot-btn');
+  ['4pm','6pm'].forEach((t, i) => {
+    const key = `${selCity}-${selDate}-${t}`;
+    const rem = slotRemaining[key];
+    const btn = timeBtns[i];
+    if (!btn) return;
+    const isFull = rem !== undefined && rem <= 0;
+    btn.disabled = isFull;
+    btn.classList.toggle('sold-out', isFull);
+    let badge = btn.querySelector('.sb-sold-out');
+    if (isFull) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'sb-sold-out'; btn.appendChild(badge); }
+      badge.textContent = 'Sold Out';
+    } else {
+      if (badge) badge.remove();
+    }
+  });
 }
 
 function selectTime(time) {
@@ -947,6 +972,8 @@ async function loadCounts() {
         if (ecEl) ecEl.textContent = txt;
       }
     });
+    // Refresh time button states if user is already on step-time
+    if (!document.getElementById('step-time').classList.contains('hidden')) updateTimeButtons();
   } catch(e) {}
 }
 
