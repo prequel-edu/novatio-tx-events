@@ -964,9 +964,10 @@ async function loadCounts() {
       const r4 = slotRemaining[day + '-4pm'];
       const r6 = slotRemaining[day + '-6pm'];
       const rem = (r4 !== undefined && r6 !== undefined) ? Math.min(r4, r6) : (r4 ?? r6);
+      const maxRem = (r4 !== undefined && r6 !== undefined) ? Math.max(r4, r6) : (r4 ?? r6);
       if (rem !== undefined) {
         const cap = SLOT_CAPACITY[day + '-4pm'] || SLOT_CAPACITY[day + '-6pm'] || 1;
-        const txt = rem > cap * 0.5 ? '⚡ Spaces limited' : `⚡ ${rem} spaces remaining`;
+        const txt = rem <= 0 && maxRem > 0 ? '⚡ Almost Full' : rem > cap * 0.5 ? '⚡ Spaces limited' : `⚡ ${rem} spaces remaining`;
         el.textContent = txt;
         const ecEl = document.getElementById('ecrem-' + day);
         if (ecEl) ecEl.textContent = txt;
