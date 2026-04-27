@@ -610,19 +610,6 @@
             <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
           </div>
         </div>
-        <div class="ec-date-row">
-          <div class="ec-date-info">
-            <div class="ec-date-name">Thursday, May 14</div>
-            <div class="ec-venue-name">The Stone Manor · 215 Coca-Cola Pl, San Antonio</div>
-            <div class="ec-date-badges">
-              <span class="badge badge-limited" id="ecrem-san-antonio-may14">⚡ Spaces limited</span>
-            </div>
-          </div>
-          <div class="ec-times-row">
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may14','6pm')">6–8pm</span>
-          </div>
-        </div>
         <div class="ec-register">
           <button class="btn-city" onclick="preselectCity('san-antonio')">Register for San Antonio →</button>
         </div>
@@ -723,7 +710,6 @@ const CITY_DATES = {
   ],
   'san-antonio': [
     { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: true },
-    { key:'may14', label:'Thursday, May 14',  venue:'The Stone Manor',        address:'215 Coca-Cola Pl, San Antonio, TX 78220',                spacesRemaining: 100, limited: false, familyFriendly: false }
   ],
   'dallas':      [
     { key:'may17', label:'Sunday, May 17',    venue:'Main Event Grand Prairie', address:'3106 State Hwy 161, Grand Prairie, TX 75052', spacesRemaining: 0, limited: false, familyFriendly: true },
@@ -743,8 +729,6 @@ const SLOT_LABELS = {
   'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm · Mission Control Coworking Space',
   'san-antonio-may13-4pm': "San Antonio · Wed May 13 · 4–6pm · AR's Entertainment Hub",
   'san-antonio-may13-6pm': "San Antonio · Wed May 13 · 6–8pm · AR's Entertainment Hub",
-  'san-antonio-may14-4pm': 'San Antonio · Thu May 14 · 4–6pm · The Stone Manor',
-  'san-antonio-may14-6pm': 'San Antonio · Thu May 14 · 6–8pm · The Stone Manor',
   'dallas-may17-4pm':      'Dallas/FW · Sun May 17 · 4–6pm · Main Event Grand Prairie',
   'dallas-may17-6pm':      'Dallas/FW · Sun May 17 · 6–8pm · Main Event Grand Prairie',
   'dallas-may18-4pm':      'Dallas/FW · Mon May 18 · 4–6pm · Krimson Park',
@@ -765,8 +749,6 @@ const SLOT_META = {
   'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
   'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
   'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
-  'san-antonio-may14-4pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '4:00-6:00pm CT', address: '215 Coca-Cola Pl, San Antonio, TX 78220',               familyFriendly: false },
-  'san-antonio-may14-6pm': { date: '2026-05-14', city: 'San Antonio', venue: 'The Stone Manor',     time: '6:00-8:00pm CT', address: '215 Coca-Cola Pl, San Antonio, TX 78220',               familyFriendly: false },
   'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '4:00-6:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
   'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Main Event Grand Prairie', time: '6:00-8:00pm CT', address: '3106 State Hwy 161, Grand Prairie, TX 75052', familyFriendly: true },
   'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Krimson Park',             time: '4:00-6:00pm CT', address: '208 N Market St # 300, Dallas, TX 75202',    familyFriendly: false },
@@ -778,10 +760,9 @@ const SLOT_META = {
 const SLOT_CAPACITY = {
   'austin-apr26-4pm':150,'austin-apr26-6pm':150,
   'austin-apr27-4pm':60,'austin-apr27-6pm':60,
-  'houston-may10-4pm':50,'houston-may10-6pm':50,
+  'houston-may10-4pm':200,'houston-may10-6pm':50,
   'houston-may11-4pm':80,'houston-may11-6pm':80,
   'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
-  'san-antonio-may14-4pm':100,'san-antonio-may14-6pm':100,
   'dallas-may18-4pm':400,'dallas-may18-6pm':400,
   'dallas-may19-4pm':60,'dallas-may19-6pm':60
 };
@@ -957,7 +938,7 @@ async function loadCounts() {
       slotRemaining[k] = Math.max(0, SLOT_CAPACITY[k] - (counts[k] || 0));
     });
     // Update static event card badges (use min of 4pm/6pm for that day)
-    const dayKeys = ['austin-apr26','austin-apr27','houston-may10','houston-may11','san-antonio-may14'];
+    const dayKeys = ['austin-apr26','austin-apr27','houston-may10','houston-may11'];
     dayKeys.forEach(day => {
       const el = document.getElementById('rem-' + day);
       if (!el) return;
