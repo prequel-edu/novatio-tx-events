@@ -72,6 +72,15 @@
     .btn-copy:hover { opacity: .88; }
     .copied-msg { font-size: 12px; color: #065F46; font-weight: 600; margin-top: 6px; display: none; }
 
+    /* Agenda */
+    .agenda-section { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .agenda-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .agenda-row { display: flex; gap: 12px; margin-bottom: 9px; font-size: 14px; align-items: baseline; }
+    .agenda-time { font-weight: 700; color: var(--dark); min-width: 56px; flex-shrink: 0; }
+    .agenda-desc { color: #374151; }
+    .agenda-row.kids-row .agenda-time { color: var(--orange); }
+    .agenda-row.kids-row .agenda-desc { color: var(--orange); font-weight: 600; }
+
     /* What to expect */
     .expect-card { background: var(--warm); border-radius: 20px; padding: 28px; }
     .expect-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 16px; }
@@ -130,6 +139,12 @@
         </div>
       </div>
 
+      <!-- Agenda -->
+      <div class="agenda-section">
+        <div class="agenda-label">Evening Agenda</div>
+        <div id="agenda-rows"></div>
+      </div>
+
       <!-- Add to Calendar -->
       <div class="cal-section">
         <div class="cal-label">Add to your calendar</div>
@@ -155,7 +170,7 @@
       <div class="expect-item"><span class="ei">🎓</span><span>See how the school day works: 2-hour academics + afternoon clubs.</span></div>
       <div class="expect-item"><span class="ei">💰</span><span>Get all your TEFA questions answered — how to apply, timelines, what's covered.</span></div>
       <div class="expect-item"><span class="ei">📝</span><span>No commitment required. Come curious, leave informed.</span></div>
-      <div class="expect-item" id="family-line" style="display:none"><span class="ei">👨‍👩‍👧</span><span>Bring the kids — this event is family friendly!</span></div>
+      <div class="expect-item" id="family-line" style="display:none"><span class="ei">👨‍👩‍👧</span><span>Bring the whole family — food and activities for the kids are on us all evening.</span></div>
     </div>
 
   </div>
@@ -174,8 +189,8 @@ const EVENTS = {
   'austin-apr27-6pm':      { city:'Austin',       date:'Monday, April 27, 2026',     time:'6:00–8:00pm CT', venue:'GhostLine Kitchens',           address:'3400 Comsouth Drive, Austin, TX 78744',                        gcalDate:'20260427', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
   'houston-may10-4pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'4:00–6:00pm CT', venue:"Flip N' Fun Center",           address:'5379 W Richey Rd, Houston, TX 77066',                          gcalDate:'20260510', gcalStart:'160000', gcalEnd:'180000', familyFriendly:true },
   'houston-may10-6pm':     { city:'Houston',      date:'Sunday, May 10, 2026',       time:'6:00–8:00pm CT', venue:"Flip N' Fun Center",           address:'5379 W Richey Rd, Houston, TX 77066',                          gcalDate:'20260510', gcalStart:'180000', gcalEnd:'200000', familyFriendly:true },
-  'houston-may11-4pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'4:00–6:00pm CT', venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',         gcalDate:'20260511', gcalStart:'160000', gcalEnd:'180000', familyFriendly:true },
-  'houston-may11-6pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'6:00–8:00pm CT', venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',         gcalDate:'20260511', gcalStart:'180000', gcalEnd:'200000', familyFriendly:true },
+  'houston-may11-4pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'4:00–6:00pm CT', venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',         gcalDate:'20260511', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
+  'houston-may11-6pm':     { city:'Houston',      date:'Monday, May 11, 2026',       time:'6:00–8:00pm CT', venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077',         gcalDate:'20260511', gcalStart:'180000', gcalEnd:'200000', familyFriendly:false },
   'san-antonio-may13-4pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'4:00–6:00pm CT', venue:"AR's Entertainment Hub",       address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', gcalDate:'20260513', gcalStart:'160000', gcalEnd:'180000', familyFriendly:true },
   'san-antonio-may13-6pm': { city:'San Antonio',  date:'Wednesday, May 13, 2026',    time:'6:00–8:00pm CT', venue:"AR's Entertainment Hub",       address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', gcalDate:'20260513', gcalStart:'180000', gcalEnd:'200000', familyFriendly:true },
   'san-antonio-may14-4pm': { city:'San Antonio',  date:'Thursday, May 14, 2026',     time:'4:00–6:00pm CT', venue:'The Stone Manor',               address:'215 Coca-Cola Pl, San Antonio, TX 78220',                      gcalDate:'20260514', gcalStart:'160000', gcalEnd:'180000', familyFriendly:false },
@@ -203,6 +218,34 @@ const EVENTS = {
     document.getElementById('event-date').textContent = ev.date;
     document.getElementById('event-time').textContent = ev.time;
     if (ev.familyFriendly) document.getElementById('family-line').style.display = 'flex';
+
+    // Render agenda
+    (function() {
+      function agendaTime(baseHour24, offsetMin) {
+        const totalMin = baseHour24 * 60 + offsetMin;
+        const h24 = Math.floor(totalMin / 60);
+        const m   = totalMin % 60;
+        const h12 = h24 > 12 ? h24 - 12 : h24;
+        const mm  = m === 0 ? ':00' : ':' + String(m).padStart(2, '0');
+        return h12 + mm + (h24 >= 12 ? 'pm' : 'am');
+      }
+      const startH = parseInt(ev.gcalStart.slice(0, 2), 10);
+      const items = [
+        { time: agendaTime(startH, 0),  desc: 'Arrival & Registration' },
+        { time: agendaTime(startH, 30), desc: 'All About Novatio' },
+        { time: agendaTime(startH, 60), desc: 'Q&A — stay as long as you like' },
+      ];
+      if (ev.familyFriendly) {
+        items.push({ time: 'All evening', desc: 'Food & activities for the kids — on us', kids: true });
+      }
+      const container = document.getElementById('agenda-rows');
+      items.forEach(function(item) {
+        const row = document.createElement('div');
+        row.className = 'agenda-row' + (item.kids ? ' kids-row' : '');
+        row.innerHTML = '<span class="agenda-time">' + item.time + '</span><span class="agenda-desc">' + item.desc + '</span>';
+        container.appendChild(row);
+      });
+    })();
 
     // Render add-to-calendar button
     const isTBA = ev.venue === 'Venue to be announced';
