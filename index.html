@@ -521,7 +521,7 @@
           </div>
           <div class="ec-times-row">
             <span class="time-chip" onclick="preselectSlot('houston','may10','2pm')">2–4pm</span>
-            <span class="time-chip" style="opacity:.45;cursor:not-allowed;text-decoration:line-through" title="Sold out">4–6pm</span>
+            <span class="time-chip" onclick="preselectSlot('houston','may10','4pm')">4–6pm</span>
             <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
           </div>
         </div>
@@ -697,7 +697,7 @@ const SLOT_META = {
 };
 
 const SLOT_CAPACITY = {
-  'houston-may10-2pm':100,'houston-may10-4pm':0,'houston-may10-6pm':50,
+  'houston-may10-2pm':100,'houston-may10-4pm':44,'houston-may10-6pm':50,
   'houston-may11-4pm':80,'houston-may11-6pm':80,
   'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
   'dallas-may17-4pm':0,'dallas-may17-6pm':0,
