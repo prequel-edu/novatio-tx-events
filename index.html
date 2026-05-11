@@ -317,7 +317,7 @@
               <div class="city-grid">
                 <button type="button" class="slot-btn" onclick="selectCity('houston')">
                   <span class="sb-city">Houston</span>
-                  <span class="sb-date">May 10–11</span>
+                  <span class="sb-date">May 11</span>
                 </button>
                 <button type="button" class="slot-btn" onclick="selectCity('san-antonio')">
                   <span class="sb-city">San Antonio</span>
@@ -494,7 +494,7 @@
         <button class="ec-tab" id="ect-houston" onclick="toggleEcCity('houston')">
           <span class="ec-flag">🚀</span>
           <span class="ec-city">Houston</span>
-          <span class="ec-dates-label">May 10–11</span>
+          <span class="ec-dates-label">May 11</span>
         </button>
         <button class="ec-tab" id="ect-san-antonio" onclick="toggleEcCity('san-antonio')">
           <span class="ec-flag">🌹</span>
@@ -510,21 +510,6 @@
 
       <!-- Houston panel -->
       <div class="ec-panel hidden" id="ecp-houston">
-        <div class="ec-date-row">
-          <div class="ec-date-info">
-            <div class="ec-date-name">Sunday, May 10</div>
-            <div class="ec-venue-name">Flip N' Fun Center · 5379 W Richey Rd, Houston</div>
-            <div class="ec-date-badges">
-              <span class="badge badge-limited" id="ecrem-houston-may10">⚡ Spaces limited</span>
-              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-            </div>
-          </div>
-          <div class="ec-times-row">
-            <span class="time-chip" onclick="preselectSlot('houston','may10','2pm')">2–4pm</span>
-            <span class="time-chip" style="opacity:.45;cursor:not-allowed;text-decoration:line-through" title="Sold out">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('houston','may10','6pm')">6–8pm</span>
-          </div>
-        </div>
         <div class="ec-date-row">
           <div class="ec-date-info">
             <div class="ec-date-name">Monday, May 11</div>
@@ -651,7 +636,6 @@
 /* ─── SLOT DATA ─────────────────────────────────────────────── */
 const CITY_DATES = {
   'houston':     [
-    { key:'may10', label:'Sunday, May 10',    venue:"Flip N' Fun Center",  address:'5379 W Richey Rd · Houston, TX 77066',   spacesRemaining:  50, limited: true,  familyFriendly: true,  times:['2pm','4pm','6pm'] },
     { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077', spacesRemaining: 80, limited: false, familyFriendly: false, times:['4pm','6pm'] }
   ],
   'san-antonio': [
@@ -665,9 +649,6 @@ const CITY_DATES = {
 };
 
 const SLOT_LABELS = {
-  'houston-may10-2pm':     "Houston · Sun May 10 · 2–4pm · Flip N' Fun Center",
-  'houston-may10-4pm':     "Houston · Sun May 10 · 4–6pm · Flip N' Fun Center",
-  'houston-may10-6pm':     "Houston · Sun May 10 · 6–8pm · Flip N' Fun Center",
   'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm · Mission Control Coworking Space',
   'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm · Mission Control Coworking Space',
   'san-antonio-may13-4pm': "San Antonio · Wed May 13 · 4–6pm · AR's Entertainment Hub",
@@ -682,9 +663,6 @@ const SLOT_LABELS = {
 
 // ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'houston-may10-2pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '2:00-4:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
-  'houston-may10-4pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '4:00-6:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
-  'houston-may10-6pm':     { date: '2026-05-10', city: 'Houston',     venue: "Flip N' Fun Center", time: '6:00-8:00pm CT', address: '5379 W Richey Rd, Houston, TX 77066', familyFriendly: true },
   'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
   'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
   'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
@@ -698,7 +676,6 @@ const SLOT_META = {
 };
 
 const SLOT_CAPACITY = {
-  'houston-may10-2pm':100,'houston-may10-4pm':0,'houston-may10-6pm':81,
   'houston-may11-4pm':80,'houston-may11-6pm':80,
   'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
   'dallas-may17-4pm':0,'dallas-may17-6pm':100,
