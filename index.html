@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Novatio | Texas In-Person Events | TEFA Approved · Grades 4–8</title>
-  <meta name="description" content="Novatio is coming to Texas! Join us in Houston, San Antonio, and Dallas. Meet our team, ask questions, and see how TEFA covers 100% of tuition. Free to attend." />
+  <meta name="description" content="Novatio is coming to Texas! Join us in Dallas / Fort Worth. Meet our team, ask questions, and see how TEFA covers 100% of tuition. Free to attend." />
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -315,14 +315,6 @@
             <div class="slot-step" id="step-city">
               <div class="step-label">Step 1: Select your city</div>
               <div class="city-grid">
-                <button type="button" class="slot-btn" onclick="selectCity('houston')">
-                  <span class="sb-city">Houston</span>
-                  <span class="sb-date">May 11</span>
-                </button>
-                <button type="button" class="slot-btn" onclick="selectCity('san-antonio')">
-                  <span class="sb-city">San Antonio</span>
-                  <span class="sb-date">May 13–14</span>
-                </button>
                 <button type="button" class="slot-btn" onclick="selectCity('dallas')">
                   <span class="sb-city">Dallas / Ft Worth</span>
                   <span class="sb-date">May 17–19</span>
@@ -491,62 +483,11 @@
 
     <div class="events-compact">
       <div class="events-city-tabs">
-        <button class="ec-tab" id="ect-houston" onclick="toggleEcCity('houston')">
-          <span class="ec-flag">🚀</span>
-          <span class="ec-city">Houston</span>
-          <span class="ec-dates-label">May 11</span>
-        </button>
-        <button class="ec-tab" id="ect-san-antonio" onclick="toggleEcCity('san-antonio')">
-          <span class="ec-flag">🌹</span>
-          <span class="ec-city">San Antonio</span>
-          <span class="ec-dates-label">May 13–14</span>
-        </button>
         <button class="ec-tab" id="ect-dallas" onclick="toggleEcCity('dallas')">
           <span class="ec-flag">⭐</span>
           <span class="ec-city">Dallas / Ft Worth</span>
           <span class="ec-dates-label">May 17–19</span>
         </button>
-      </div>
-
-      <!-- Houston panel -->
-      <div class="ec-panel hidden" id="ecp-houston">
-        <div class="ec-date-row">
-          <div class="ec-date-info">
-            <div class="ec-date-name">Monday, May 11</div>
-            <div class="ec-venue-name">Mission Control Coworking · 12121 Westheimer Rd, Houston</div>
-            <div class="ec-date-badges">
-              <span class="badge badge-limited" id="ecrem-houston-may11">⚡ Spaces limited</span>
-            </div>
-          </div>
-          <div class="ec-times-row">
-            <span class="time-chip" onclick="preselectSlot('houston','may11','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('houston','may11','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="ec-register">
-          <button class="btn-city" onclick="preselectCity('houston')">Register for Houston →</button>
-        </div>
-      </div>
-
-      <!-- San Antonio panel -->
-      <div class="ec-panel hidden" id="ecp-san-antonio">
-        <div class="ec-date-row">
-          <div class="ec-date-info">
-            <div class="ec-date-name">Wednesday, May 13</div>
-            <div class="ec-venue-name">AR's Entertainment Hub · 4522 Fredericksburg Rd, San Antonio</div>
-            <div class="ec-date-badges">
-              <span class="badge badge-limited" id="ecrem-san-antonio-may13">⚡ Spaces limited</span>
-              <span class="badge badge-family">👨‍👩‍👧 Kid Friendly</span>
-            </div>
-          </div>
-          <div class="ec-times-row">
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','4pm')">4–6pm</span>
-            <span class="time-chip" onclick="preselectSlot('san-antonio','may13','6pm')">6–8pm</span>
-          </div>
-        </div>
-        <div class="ec-register">
-          <button class="btn-city" onclick="preselectCity('san-antonio')">Register for San Antonio →</button>
-        </div>
       </div>
 
       <!-- Dallas panel -->
@@ -635,12 +576,6 @@
 <script>
 /* ─── SLOT DATA ─────────────────────────────────────────────── */
 const CITY_DATES = {
-  'houston':     [
-    { key:'may11', label:'Monday, May 11',    venue:'Mission Control Coworking Space', address:'12121 Westheimer Rd Suite B 300, Houston, TX 77077', spacesRemaining: 80, limited: false, familyFriendly: false, times:['4pm','6pm'] }
-  ],
-  'san-antonio': [
-    { key:'may13', label:'Wednesday, May 13', venue:"AR's Entertainment Hub", address:'4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', spacesRemaining: 80, limited: false, familyFriendly: true, times:['4pm','6pm'] },
-  ],
   'dallas':      [
     { key:'may17', label:'Sunday, May 17',    venue:'Round 1 Bowling & Arcade', address:'3811 S Cooper St, Arlington, TX 76015', spacesRemaining: 0,   limited: false, familyFriendly: true,  times:['4pm','6pm'] },
     { key:'may18', label:'Monday, May 18',    venue:'Krimson Park',             address:'208 N Market St # 300, Dallas, TX 75202',     spacesRemaining: 400, limited: false, familyFriendly: false, times:['4pm','6pm'] },
@@ -649,10 +584,6 @@ const CITY_DATES = {
 };
 
 const SLOT_LABELS = {
-  'houston-may11-4pm':     'Houston · Mon May 11 · 4–6pm · Mission Control Coworking Space',
-  'houston-may11-6pm':     'Houston · Mon May 11 · 6–8pm · Mission Control Coworking Space',
-  'san-antonio-may13-4pm': "San Antonio · Wed May 13 · 4–6pm · AR's Entertainment Hub",
-  'san-antonio-may13-6pm': "San Antonio · Wed May 13 · 6–8pm · AR's Entertainment Hub",
   'dallas-may17-4pm':      'Dallas/FW · Sun May 17 · 4–6pm · Round 1 Bowling & Arcade',
   'dallas-may17-6pm':      'Dallas/FW · Sun May 17 · 6–8pm · Round 1 Bowling & Arcade',
   'dallas-may18-4pm':      'Dallas/FW · Mon May 18 · 4–6pm · Krimson Park',
@@ -663,10 +594,6 @@ const SLOT_LABELS = {
 
 // ISO dates, city, address and familyFriendly for each slot
 const SLOT_META = {
-  'houston-may11-4pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '4:00-6:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
-  'houston-may11-6pm':     { date: '2026-05-11', city: 'Houston',     venue: 'Mission Control Coworking Space', time: '6:00-8:00pm CT', address: '12121 Westheimer Rd Suite B 300, Houston, TX 77077', familyFriendly: false },
-  'san-antonio-may13-4pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '4:00-6:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
-  'san-antonio-may13-6pm': { date: '2026-05-13', city: 'San Antonio', venue: "AR's Entertainment Hub", time: '6:00-8:00pm CT', address: '4522 Fredericksburg Rd Suite B100 & B99, San Antonio, TX 78201', familyFriendly: true },
   'dallas-may17-4pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Round 1 Bowling & Arcade', time: '4:00-6:00pm CT', address: '3811 S Cooper St, Arlington, TX 76015', familyFriendly: true },
   'dallas-may17-6pm':      { date: '2026-05-17', city: 'Dallas',      venue: 'Round 1 Bowling & Arcade', time: '6:00-8:00pm CT', address: '3811 S Cooper St, Arlington, TX 76015', familyFriendly: true },
   'dallas-may18-4pm':      { date: '2026-05-18', city: 'Dallas',      venue: 'Krimson Park',             time: '4:00-6:00pm CT', address: '208 N Market St # 300, Dallas, TX 75202',    familyFriendly: false },
@@ -676,8 +603,6 @@ const SLOT_META = {
 };
 
 const SLOT_CAPACITY = {
-  'houston-may11-4pm':80,'houston-may11-6pm':80,
-  'san-antonio-may13-4pm':80,'san-antonio-may13-6pm':80,
   'dallas-may17-4pm':0,'dallas-may17-6pm':100,
   'dallas-may18-4pm':400,'dallas-may18-6pm':400,
   'dallas-may19-4pm':60,'dallas-may19-6pm':60
@@ -790,7 +715,7 @@ function resetSlot() {
 
 /* ─── COMPACT EVENT CARD ACCORDION ──────────────────────────── */
 function toggleEcCity(city) {
-  const cities = ['houston','san-antonio','dallas'];
+  const cities = ['dallas'];
   const isOpen = !document.getElementById('ecp-' + city).classList.contains('hidden');
   cities.forEach(c => {
     document.getElementById('ecp-' + c).classList.add('hidden');
@@ -808,7 +733,7 @@ function preselectCity(city) {
   setTimeout(() => {
     resetSlot();
     const cityBtns = document.querySelectorAll('#step-city .slot-btn');
-    const cityMap = ['houston','san-antonio','dallas'];
+    const cityMap = ['dallas'];
     const idx = cityMap.indexOf(city);
     if (idx >= 0) cityBtns[idx].click();
   }, 400);
@@ -819,7 +744,7 @@ function preselectSlot(city, date, time) {
   setTimeout(() => {
     resetSlot();
     const cityBtns = document.querySelectorAll('#step-city .slot-btn');
-    const cityMap = ['houston','san-antonio','dallas'];
+    const cityMap = ['dallas'];
     const idx = cityMap.indexOf(city);
     if (idx >= 0) {
       cityBtns[idx].click();
